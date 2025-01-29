@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Oriol/static/css/main.f855e6bc.css",
+    "main.js": "/Oriol/static/js/main.97c4651a.js",
+    "static/js/488.bbebb303.chunk.js": "/Oriol/static/js/488.bbebb303.chunk.js",
+    "static/media/logo.svg": "/Oriol/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/Oriol/index.html",
+    "main.f855e6bc.css.map": "/Oriol/static/css/main.f855e6bc.css.map",
+    "main.97c4651a.js.map": "/Oriol/static/js/main.97c4651a.js.map",
+    "488.bbebb303.chunk.js.map": "/Oriol/static/js/488.bbebb303.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.97c4651a.js"
+  ]
+}
