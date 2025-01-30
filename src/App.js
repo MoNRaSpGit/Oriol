@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Productos from './Componentes/Productos';
+import Factura from './Componentes/Factura';
 
 function App() {
+  const [productosSeleccionados, setProductosSeleccionados] = useState([]);
+
+  const agregarProducto = (producto) => {
+    setProductosSeleccionados([...productosSeleccionados, { ...producto }]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <nav className="navbar navbar-light bg-light">
+          <div className="container">
+            <Link className="navbar-brand" to="/">Productos</Link>
+            <Link className="btn btn-primary" to="/factura">Ver Factura</Link>
+          </div>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Productos onSeleccionarProducto={agregarProducto} />} />
+          <Route path="/factura" element={<Factura productosSeleccionados={productosSeleccionados} />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -1,0 +1,51 @@
+.factura-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .factura-info {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .factura-totales p {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+
+  @media print {
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .factura-container {
+      width: 21cm;
+      height: 29.7cm;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      box-shadow: none;
+    }
+  
+    .print-a4 {
+      width: 100%;
+      height: 100%;
+    }
+  
+    .navbar, .btn {
+      display: none; /* Oculta la barra de navegación al imprimir */
+    }
+  }
+
+
+  @media print {
+    .btn {
+      display: none; /* Oculta botones al imprimir */
+    }
+  }
+  
+  
