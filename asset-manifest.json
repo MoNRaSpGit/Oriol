@@ -1,16 +1,23 @@
 {
   "files": {
-    "main.css": "/Oriol/static/css/main.ae77ab3d.css",
-    "main.js": "/Oriol/static/js/main.fa5e5b3c.js",
+    "main.css": "/Oriol/static/css/main.d228741c.css",
+    "main.js": "/Oriol/static/js/main.b060df27.js",
     "static/js/488.bbebb303.chunk.js": "/Oriol/static/js/488.bbebb303.chunk.js",
     "static/media/logoOriol.jpg": "/Oriol/static/media/logoOriol.ac500c43a13739226d5a.jpg",
+    "static/media/fumi2.jpg": "/Oriol/static/media/fumi2.3fa0a378a44c110606ba.jpg",
+    "static/media/Monelo.jpg": "/Oriol/static/media/Monelo.65970a6cd9342f174787.jpg",
+    "static/media/abono_organico.jpg": "/Oriol/static/media/abono_organico.bea335236582ac2df054.jpg",
+    "static/media/dog.jpg": "/Oriol/static/media/dog.f6788d28deb2a7c55ae0.jpg",
+    "static/media/insecticida.jpg": "/Oriol/static/media/insecticida.c950728ad8874dbf21b4.jpg",
+    "static/media/semilla.jpg": "/Oriol/static/media/semilla.7cbd106457616043d991.jpg",
+    "static/media/maquinaFumiga.jpg": "/Oriol/static/media/maquinaFumiga.616e80f6d98bb612826a.jpg",
     "index.html": "/Oriol/index.html",
-    "main.ae77ab3d.css.map": "/Oriol/static/css/main.ae77ab3d.css.map",
-    "main.fa5e5b3c.js.map": "/Oriol/static/js/main.fa5e5b3c.js.map",
+    "main.d228741c.css.map": "/Oriol/static/css/main.d228741c.css.map",
+    "main.b060df27.js.map": "/Oriol/static/js/main.b060df27.js.map",
     "488.bbebb303.chunk.js.map": "/Oriol/static/js/488.bbebb303.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ae77ab3d.css",
-    "static/js/main.fa5e5b3c.js"
+    "static/css/main.d228741c.css",
+    "static/js/main.b060df27.js"
   ]
 }
