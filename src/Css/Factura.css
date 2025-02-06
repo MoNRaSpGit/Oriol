@@ -8,275 +8,186 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Cabecera alineada a la derecha */
 .factura-header {
-    display: flex;
-    justify-content: space-between; /* 🔹 Separa el logo a la izquierda y el encabezado a la derecha */
-    align-items: center;
-}
-
-.logo-placeholder {
-    width: 150px;
-    height: 100px;
-    background-color: #ddd;
-    border: 2px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #666;
-    margin-right: auto; /* 🔹 Empuja el resto del contenido a la derecha */
-}
-
-
-/* Alinea las cajas a la derecha */
-.factura-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* 🔹 Alinea todo el contenido a la derecha */
-    gap: 5px; /* Espacio entre filas */
-}
-
-/* Organiza las cajas en dos filas */
-/* Alinea las cajas a la derecha */
-.factura-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* 🔹 Mueve todo a la derecha */
-    gap: 5px; /* Espacio entre filas */
-}
-
-/* Organiza las cajas en dos filas */
-.factura-info-row {
-    display: flex;
-    gap: 10px;
-}
-
-
-
-
-
-
-
-
-
-/* Estilo para cada caja del encabezado */
-.factura-info-box {
-    background-color: #f8f9fa; /* Fondo claro */
-    border: 0.5px solid #ccc; /* Borde sutil */
-    /*padding: 5px; /* 🔹 Reducimos el padding para hacer la caja menos alta */
-    
-    
-    min-width: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60px; /* 🔹 Reducimos la altura mínima */
-}
-
-/* Título de cada sección */
-.factura-info-box .titulo {
-    font-weight: bold;
-    font-size: 14px;
-    color: #0074cc; /* 🔹 Celeste más fuerte */
-    background-color: #d9f0ff; /* 🔹 Celeste claro */
-   
-    text-transform: uppercase;
-    text-align: center;
-    position: relative;
     width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
-/* Línea divisoria entre título y valor */
-.factura-info-box .titulo::after {
-    content: "";
-    display: block;
-    width: 100%; /* 🔹 Ahora la línea toca los bordes */
+/* Rectángulo dividido en 6 filas */
+.header-box {
+    width: 400px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+
+/* Cada fila dentro del rectángulo */
+.header-row {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+/* Asegurar que la última fila no tenga borde inferior */
+.header-row:last-child {
+    border-bottom: none;
+}
+
+/* Fila 1 (RUT EMISOR) con fondo gris y texto negro */
+.header-rut {
+    background-color: #d9d9d9;    
+    color: black;
+
+}
+
+
+/* Ajuste de altura: RUT EMISOR y e-Facture */
+.header-rut, .header-efacture {
+    height: 35px !important; /* Fuerza el tamaño */
+    flex: unset !important; /* Evita que el flexbox las expanda automáticamente */
+}
+
+.header-multi.header-titles {
+    height: 35px !important;
+    flex: unset !important;
+}
+
+.header-multi:not(.header-titles) {
+    height: 35px !important;
+    flex: unset !important;
+}
+
+
+.header-row, .header-receptor{
+
+    height: 35px !important;
+    flex: unset !important;
+}
+
+
+
+
+
+/* Fila 2 (e-Facture) con fondo blanco y letra más fina */
+.header-efacture {
+    background-color: white;
+    color: #555; /* Gris oscuro */
+    font-weight: normal; /* Sin negrita */
+    font-size: 14px; /* Tamaño ligeramente más pequeño */
+}
+
+/* Filas 3 y 4 divididas en 4 columnas */
+.header-multi {
+    display: flex;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+/* Títulos en gris (Fila 3) */
+.header-titles {
+    background-color: #d9d9d9;
+    color: black;
+}
+
+/* Columnas dentro de las filas 3 y 4 */
+.header-col {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-right: 2px solid black; /* Asegurar líneas verticales */
+    border-bottom: none; /* Evitar doble borde inferior */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Asegurar que las columnas llenen el ancho */
+.header-multi > .header-col {
+    height: 100%;
+}
+
+/* Eliminar borde derecho de la última columna */
+.header-col:last-child {
+    border-right: none;
+}
+
+/* Fila 4 - Valores con tipografía más fina */
+.header-multi:not(.header-titles) .header-col {
+    font-weight: normal; /* Sin negrita */
+    font-size: 14px; /* Tamaño más pequeño */
+    color: #555; /* Gris oscuro */
+}
+
+/* Fila 5 - RUT RECEPTOR con fondo gris */
+.header-receptor {
+    background-color: #d9d9d9;
+    color: black;
+}
+
+/* Fila 6 - Información del Cliente con fondo blanco y texto fino */
+.header-cliente {
+    background-color: red;
+    color: #555; /* Gris oscuro */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    font-weight: normal; /* Sin negrita */
+    font-size: 14px; /* Tamaño más pequeño */
+    height: 100px !important; /* Fijamos la altura en 70px */
+    flex: unset !important; /* Evita que flexbox altere la altura */
+    overflow: hidden; /* Evita desbordamientos si el contenido es más grande */
+}
+
+
+/* Línea divisoria tocando los bordes del contenedor */
+.linea-divisoria {
+    width: 100%;
     height: 2px;
     background-color: black;
     margin: 0;
 }
 
-/* Contenido (valores) de cada sección */
-.factura-info-box .valor {
-    font-size: 16px;
-    font-weight: bold;
-    color: #555;
-    text-align: center;
-    padding-top: 5px;
-    width: 100%;
-}
 
 
-
-
-
-
-
-
-/* Encierra el cuerpo de la factura en un rectángulo */
-.factura-body {
-    margin-top: 20px;
-    padding: 15px;
-    border: 2px solid #ccc;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    min-height: 400px; /* Ajusta este valor según necesites más espacio */
+/* Contenedor del logo */
+.factura-logo-container {
+    height:  130px;
+    width: auto; /* Ajusta el tamaño del contenedor según necesites */
+    background-color: red;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.factura-body table {
-    background-color: white;
-    flex-grow: 1;
-    border-collapse: collapse; /* Asegura que no haya separación */
-}
-
-.factura-body table th,
-.factura-body table td {
-    border: none !important; /* Elimina todas las líneas de la tabla */
-    vertical-align: middle !important; /* Asegura que el contenido se centre verticalmente */
-    text-align: center; /* Centra el texto horizontalmente */
-}
-
-/* Pie de página dividido en dos secciones */
-.factura-footer {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between; /* Separa las dos partes */
     align-items: center;
+    justify-content: center;
+    margin-right: 50px; /* Ajusta este valor para moverlo */
+    overflow: hidden; /* Oculta cualquier contenido fuera del área visible */
+    margin-top: -150px;
+    
 }
 
-/* Pie de Página 2 (Rectángulo Rojo dividido en dos partes) */
-/* Pie de Página 2 (Rectángulo Rojo dividido en dos partes) */
-.factura-footer-left {
-    width: 73%;
-    height: 120px;
-    border: 2px solid black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: black;
-    font-weight: bold;
-    padding: 10px;
-    position: relative; /* Necesario para la línea divisoria */
-}
-
-.factura-footer-left::after {
-    content: "";
-    position: absolute;
-    top: 10px;
-    bottom: 10px;
-    left: 50%;
-    width: 2px;
-    background-color: black;
-}
-
-/* Texto de desarrollador en Pie de Página 2 */
-.factura-footer-left .footer-info {
-    font-size: 12px;
-    text-align: left;
-    line-height: 1.4;
-}
-
-/* Espacio para la firma */
-
-
-/* Encierra la sección de subtotales en un rectángulo */
-.factura-total-box {
-    border: 2px solid #333;
-    padding: 10px;
-    background-color: #f8f9fa;
-    width: 250px;
-    font-size: 14px;
-    height: 120px; 
-}
-
-/* Alinear subtítulo a la izquierda y valores a la derecha */
-.factura-total-box p {
-    display: flex;
-    justify-content: space-between;
-}
-
-/* 🔹 Mueve TODOS los valores ($) más a la izquierda */
-.factura-total-box p span:last-child,
-.factura-total-box p strong:last-child {
-    padding-right: 40px; /* Ajusta este valor si sigue muy pegado */
-}
-
-@media print {
-    .btn {
-        display: none;
-    }
-}
-
-.footer-sign {
-    font-size: 20px;
-    text-align: center; /* Centra horizontalmente el texto */
-    display: flex;
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra horizontalmente */
-    width: 50%;
-    height: 100%;
-}
-
-
-/* Línea divisoria dentro de la caja Cliente */
-.factura-info-box .linea-divisoria {
-    width: 400px;   
-    background-color: black;
-    margin: 5px 0;
-}
-
-/* Subtítulo "Moneda" dentro de Cliente */
-.factura-info-box .titulo-sub {
-    font-weight: bold;
-    font-size: 13px;
-    color: #0074cc; /* 🔹 Celeste más fuerte */
-    text-transform: uppercase;
-    text-align: center;
-    width: 100%;
-}
-
-
-.cliente-section {
-    flex: 1;
-    text-align: left;
-    padding-right: 10px;
-}
-
-.factura-info-row .factura-info-box {
-    min-width: 290px; /* 🔹 Ajusta este valor para cambiar solo el ancho de "RUT" y "Fecha" */
-}
-
-
+/* Estilo del logo */
 .factura-logo {
-    width: 250px; /* 🔹 Ajusta este valor para cambiar el tamaño del logo */
-    height: 150px; /* 🔹 Mantiene la proporción */
-    border-radius: 20px;
+    max-height: 250px; /* Para evitar que sea demasiado alto */
+    width: 470px; /* Ajusta el tamaño del logo */
+    border: none;
+    outline: none;
+    filter: brightness(1.1); /* Aumenta brillo para eliminar líneas fantasma */
+    clip-path: inset(2px 2px 2px 2px); /* Recorta 2px de cada lado */
 }
 
 
-.factura-body table thead th {
-    background-color: #d9f0ff; /* 🔹 Celeste claro */
-    color: #0074cc; /* 🔹 Celeste más oscuro */
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 10px;
-    border: 2px solid #ccc; /* 🔹 Opcional: bordes para definir mejor */
-}
 
-/* Agrega líneas verticales a las columnas de la tabla */
-.factura-body table thead th,
-.factura-body table tbody td {
-    border-right: 2px solid #ccc; /* 🔹 Línea vertical entre columnas */
-}
-
-/* Elimina la línea derecha de la última columna */
-.factura-body table thead th:last-child,
-.factura-body table tbody td:last-child {
-    border-right: none;
-}
+/* Version perefecta -->  xt9 */
 
