@@ -1,0 +1,104 @@
+/* Contenedor del rectángulo de información */
+.header-box {
+    width: 400px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+}
+
+/* Filas del rectángulo */
+.header-row {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+.header-row:last-child {
+    border-bottom: none;
+}
+
+/* Estilos de filas */
+.header-rut {
+    background-color: #d9d9d9;
+    color: black;
+}
+
+.header-efacture {
+    background-color: white;
+    color: #555;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* Filas 3 y 4 unificadas en una sola fila */
+.header-multi {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Fila con títulos y valores */
+.header-titles-values {
+    font-weight: bold;
+    display: flex;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+/* Títulos en gris */
+.header-title {
+    background-color: #d9d9d9;
+    color: black;
+}
+
+/* Columnas */
+.header-col {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-right: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Asegurar que la línea inferior de la fila sea continua */
+.header-title:last-child, .header-value:last-child {
+    border-right: none;
+}
+
+/* Estilos de la fila con valores */
+.header-value {
+    font-weight: normal;
+    font-size: 14px;
+    color: #555;
+    border-bottom: none;
+}
+
+/* Fila RUT RECEPTOR */
+.header-receptor {
+    background-color: #d9d9d9;
+    color: black;
+}
+
+/* Fila Información Cliente */
+.header-cliente {
+    color: #555;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    font-weight: normal;
+    font-size: 14px;
+    height: 100px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    padding-top: 15px;
+}

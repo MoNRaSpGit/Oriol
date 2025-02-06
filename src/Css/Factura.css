@@ -3,157 +3,12 @@
     padding: 20px;
     border-radius: 8px;
     background-color: #fff;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Cabecera alineada a la derecha */
-.factura-header {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-/* Rectángulo dividido en 6 filas */
-.header-box {
-    width: 400px;
-    height: 280px;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid black;
-    margin-bottom: 20px;
-}
-
-/* Cada fila dentro del rectángulo */
-.header-row {
-    flex: 1;
-    text-align: center;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    border-bottom: 2px solid black;
-}
-
-/* Asegurar que la última fila no tenga borde inferior */
-.header-row:last-child {
-    border-bottom: none;
-}
-
-/* Fila 1 (RUT EMISOR) con fondo gris y texto negro */
-.header-rut {
-    background-color: #d9d9d9;    
-    color: black;
-
-}
-
-
-/* Ajuste de altura: RUT EMISOR y e-Facture */
-.header-rut, .header-efacture {
-    height: 35px !important; /* Fuerza el tamaño */
-    flex: unset !important; /* Evita que el flexbox las expanda automáticamente */
-}
-
-.header-multi.header-titles {
-    height: 35px !important;
-    flex: unset !important;
-}
-
-.header-multi:not(.header-titles) {
-    height: 35px !important;
-    flex: unset !important;
-}
-
-
-.header-row, .header-receptor{
-
-    height: 35px !important;
-    flex: unset !important;
-}
-
-
-
-
-
-/* Fila 2 (e-Facture) con fondo blanco y letra más fina */
-.header-efacture {
-    background-color: white;
-    color: #555; /* Gris oscuro */
-    font-weight: normal; /* Sin negrita */
-    font-size: 14px; /* Tamaño ligeramente más pequeño */
-}
-
-/* Filas 3 y 4 divididas en 4 columnas */
-.header-multi {
-    display: flex;
-    width: 100%;
-    border-bottom: 2px solid black;
-}
-
-/* Títulos en gris (Fila 3) */
-.header-titles {
-    background-color: #d9d9d9;
-    color: black;
-}
-
-/* Columnas dentro de las filas 3 y 4 */
-.header-col {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    border-right: 2px solid black; /* Asegurar líneas verticales */
-    border-bottom: none; /* Evitar doble borde inferior */
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Asegurar que las columnas llenen el ancho */
-.header-multi > .header-col {
-    height: 100%;
-}
-
-/* Eliminar borde derecho de la última columna */
-.header-col:last-child {
-    border-right: none;
-}
-
-/* Fila 4 - Valores con tipografía más fina */
-.header-multi:not(.header-titles) .header-col {
-    font-weight: normal; /* Sin negrita */
-    font-size: 14px; /* Tamaño más pequeño */
-    color: #555; /* Gris oscuro */
-}
-
-/* Fila 5 - RUT RECEPTOR con fondo gris */
-.header-receptor {
-    background-color: #d9d9d9;
-    color: black;
-}
-
-/* Fila 6 - Información del Cliente con fondo blanco y texto fino */
-.header-cliente {
-    background-color: red;
-    color: #555; /* Gris oscuro */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5px;
-    font-weight: normal; /* Sin negrita */
-    font-size: 14px; /* Tamaño más pequeño */
-    height: 100px !important; /* Fijamos la altura en 70px */
-    flex: unset !important; /* Evita que flexbox altere la altura */
-    overflow: hidden; /* Evita desbordamientos si el contenido es más grande */
-}
-
-
-/* Línea divisoria tocando los bordes del contenedor */
+/* Línea divisoria */
 .linea-divisoria {
     width: 100%;
     height: 2px;
@@ -161,33 +16,37 @@
     margin: 0;
 }
 
-
-
-/* Contenedor del logo */
-.factura-logo-container {
-    height:  130px;
-    width: auto; /* Ajusta el tamaño del contenedor según necesites */
-    background-color: red;
+/* Cabecera */
+.factura-header {
+    width: 100%;
+    height: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    margin-right: 50px; /* Ajusta este valor para moverlo */
-    overflow: hidden; /* Oculta cualquier contenido fuera del área visible */
-    margin-top: -150px;
-    
+    gap: 30px; /* Espaciado entre elementos */
 }
 
-/* Estilo del logo */
-.factura-logo {
-    max-height: 250px; /* Para evitar que sea demasiado alto */
-    width: 470px; /* Ajusta el tamaño del logo */
-    border: none;
-    outline: none;
-    filter: brightness(1.1); /* Aumenta brillo para eliminar líneas fantasma */
-    clip-path: inset(2px 2px 2px 2px); /* Recorta 2px de cada lado */
+/* Cuerpo */
+.factura-body {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Pie de página */
+.factura-footer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Contenedor que agrupa logo y dueño */
+.logo-dueno-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 
-
-/* Version perefecta -->  xt9 */
 

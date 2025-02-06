@@ -1,0 +1,23 @@
+/* Contenedor del logo */
+.factura-logo-container {
+    height: 260px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative; /* Añade posición relativa */
+    z-index: 1; /* Asigna un z-index menor */
+}
+
+/* Estilo del logo */
+.factura-logo {
+    height: 260px;
+    width: 200px;
+    border: none;
+    outline: none;
+    filter: brightness(1.1);
+    clip-path: inset(2px 2px 2px 2px);
+}
+
+/* Caja "Dueño" - Rectángulo independiente debajo del logo */

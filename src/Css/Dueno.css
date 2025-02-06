@@ -1,0 +1,22 @@
+.dueno {
+    width: 280px;
+    height: 100px;
+       
+    margin-top: -70px;
+    margin-bottom: 19px;
+    position: relative; /* Añade posición relativa */
+    z-index: 2; /* Asigna un z-index mayor */
+}
+.dueno-nombre {
+    font-size: 14px; /* Tamaño de fuente */
+    
+    line-height: 1.2; /* Espaciado entre líneas */
+    text-align: center; /* Alineación del texto a la izquierda */
+}
+
+.dueno-telefono {
+    font-size: 14px; /* Tamaño de fuente */
+    font-weight: normal; /* Texto normal */
+    line-height: 1.2; /* Espaciado entre líneas */
+    text-align: center; /* Alineación del texto a la izquierda */
+}
