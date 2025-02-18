@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, updateProduct, deleteProduct } from "../Slice/productsSlice";
-import { Modal, Button, Form } from "react-bootstrap"; // Importar componentes del modal
+import { fetchProducts, addProductToDB, updateProduct, deleteProduct } from "../Slice/productsSlice";
+import { Button } from "react-bootstrap";
+import TarjetaProducto from "./TarjetaProducto";
+import ModalProducto from "./ModalProducto"; // Importamos el nuevo modal
+import { toast } from "react-toastify"; // ✅ Importamos Toastify
 import "../Css/Productos.css";
 
 const Productos = ({ onSeleccionarProducto }) => {
@@ -9,138 +12,126 @@ const Productos = ({ onSeleccionarProducto }) => {
   const { products, status, error } = useSelector((state) => state.products);
 
   const [showModal, setShowModal] = useState(false);
-  const [productToEdit, setProductToEdit] = useState({ id: "", name: "", price: "", image: "", description: "" });
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [productData, setProductData] = useState({ id: "", name: "", price: "", image: "", description: "" });
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (status === "idle") {
-      console.log("⏳ Cargando productos desde Redux...");
       dispatch(fetchProducts());
     }
   }, [status, dispatch]);
 
-  useEffect(() => {
-    if (status === "succeeded") {
-      console.log("🖥️ Mostrando producto desde el store global:", products);
-    }
-  }, [products, status]);
-
-  // Abrir modal y cargar datos actuales del producto
   const handleEdit = (producto) => {
-    setProductToEdit(producto);
+    setProductData(producto);
+    setIsEditMode(true);
     setShowModal(true);
   };
 
-  // Manejar cambios en los inputs del formulario
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProductToEdit({ ...productToEdit, [name]: value });
+  const handleAddNewProduct = () => {
+    setProductData({ id: "", name: "", price: "", image: "", description: "" });
+    setIsEditMode(false);
+    setShowModal(true);
   };
 
-  // Guardar cambios y actualizar Redux
-  const handleSaveChanges = () => {
-    dispatch(updateProduct(productToEdit));
+  const handleSave = () => {
+    // 🔹 Validación: Verificar si los campos están vacíos
+    if (!productData.name.trim() || !productData.price || !productData.description.trim()) {
+        toast.error("❌ Debes completar todos los campos: Nombre, Precio y Descripción.");
+        return; // ❌ No ejecuta la acción si hay errores
+    }
+
+    if (isEditMode) {
+        dispatch(updateProduct(productData))
+            .then(() => {
+                toast.success("✅ Producto actualizado correctamente.");
+            })
+            .catch(() => {
+                toast.error("❌ Error al actualizar el producto.");
+            });
+    } else {
+        dispatch(addProductToDB(productData))
+            .then(() => {
+                toast.success("✅ Producto agregado correctamente.");
+            })
+            .catch(() => {
+                toast.error("❌ Error al agregar el producto.");
+            });
+    }
     setShowModal(false);
-  };
+};
+
+
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm("⚠️ ¿Seguro que quieres eliminar este producto?");
-    if (confirmDelete) {
+    if (window.confirm("⚠️ ¿Seguro que quieres eliminar este producto?")) {
       dispatch(deleteProduct(id));
     }
   };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProductData({ ...productData, [name]: value });
+  };
+
+
+
+
+
+  const filteredProducts = products.filter((producto) =>
+    producto.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (status === "loading") return <p className="text-center">Cargando productos...</p>;
   if (status === "failed") return <p className="text-center text-danger">Error: {error}</p>;
 
   return (
     <div className="container">
-      <h2 className="text-center my-4">Agro insumos Productos</h2>
+      <h2 className="text-center my-4">Agro Insumos - Productos</h2>
+
+      {/* Botón para agregar nuevo producto */}
+      <div className="text-center mb-4">
+        <Button variant="success" onClick={handleAddNewProduct}>➕ Agregar Producto</Button>
+      </div>
+
+      {/* Input de búsqueda */}
+      <div className="mb-4 text-center">
+        <input
+          type="text"
+          className="form-control w-50 mx-auto"
+          placeholder="🔍 Buscar producto..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
+      {/* Lista de productos usando TarjetaProducto */}
       <div className="row">
-        {products.length === 0 ? (
-          <p className="text-center">No hay productos disponibles.</p>
+        {filteredProducts.length === 0 ? (
+          <p className="text-center">No se encontraron productos.</p>
         ) : (
-          products.map((producto) => (
-            <div key={producto.id} className="col-md-4 mb-4">
-              <div className="card shadow-sm">
-                <img 
-                  src={producto.image} 
-                  alt={producto.name} 
-                  className="card-img-top img-fluid product-image" 
-                />
-                <div className="card-body text-center">
-                  <h5 className="card-title">{producto.name}</h5>
-                  <p className="card-text">{producto.description}</p>
-                  <p className="card-text fw-bold">${producto.price}</p>
-                  <button className="btn btn-primary m-1" onClick={() => onSeleccionarProducto(producto)}>
-                    Agregar
-                  </button>
-                  <button className="btn btn-warning m-1" onClick={() => handleEdit(producto)}>
-                    Editar
-                  </button>
-                  <button className="btn btn-danger m-1" onClick={() => handleDelete(producto.id)}>
-                    Eliminar
-                  </button>
-                </div>
-              </div>
-            </div>
+          filteredProducts.map((producto) => (
+            <TarjetaProducto
+              key={producto.id}
+              producto={producto}
+              // onSeleccionarProducto={onSeleccionarProducto}
+
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           ))
         )}
       </div>
 
-      {/* Modal para editar producto */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar Producto</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                value={productToEdit.name}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Precio</Form.Label>
-              <Form.Control
-                type="number"
-                name="price"
-                value={productToEdit.price}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Imagen (URL)</Form.Label>
-              <Form.Control
-                type="text"
-                name="image"
-                value={productToEdit.image}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control
-                as="textarea"
-                name="description"
-                value={productToEdit.description}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cancelar
-          </Button>
-          <Button variant="primary" onClick={handleSaveChanges}>
-            Guardar cambios
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {/* Modal reutilizable para agregar/editar productos */}
+      <ModalProducto
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        producto={productData}
+        onChange={handleInputChange}
+        onSave={handleSave}
+        isEditMode={isEditMode}
+      />
     </div>
   );
 };

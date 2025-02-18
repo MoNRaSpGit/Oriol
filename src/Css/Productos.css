@@ -1,40 +1,66 @@
+/* Estilos mejorados para las tarjetas de productos */
 .card {
-  border-radius: 10px;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-  background-color: #fff;
-  padding-top: 15px; /* Espacio entre la imagen y el borde superior */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background-color: #ffffff;
+  padding-top: 15px;
+  border: 1px solid #ddd; /* Borde sutil */
 }
 
 .card:hover {
   transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Imagen del producto */
 .product-image {
   width: 100%;
   height: 200px;
-  object-fit: cover; /* Evita distorsión de la imagen */
-  border-radius: 10px;
-  margin-top: 10px; /* Espacio entre la imagen y el borde superior de la tarjeta */
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
+/* Contenedor del contenido de la tarjeta */
 .card-body {
-  padding: 15px;
+  padding: 20px;
   background-color: #fff;
+  text-align: center;
 }
 
+/* Título del producto */
 .card-title {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #333;
+  color: #222;
+  margin-bottom: 10px;
 }
 
+/* Descripción */
 .card-text {
   font-size: 1rem;
-  color: #666;
+  color: #555;
+  margin-bottom: 10px;
 }
 
+/* Precio */
+.card-text.fw-bold {
+  font-size: 1.2rem;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Botones */
+.btn {
+  font-size: 0.9rem;
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+}
+
+/* Botón "Agregar" */
 .btn-primary {
   background-color: #007bff;
   border: none;
@@ -42,4 +68,25 @@
 
 .btn-primary:hover {
   background-color: #0056b3;
+}
+
+/* Botón "Editar" */
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  color: #222;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+/* Botón "Eliminar" */
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
 }

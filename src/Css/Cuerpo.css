@@ -1,0 +1,47 @@
+/* 📌 Contenedor del cuerpo */
+.factura-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+/* 📌 Rectángulo principal */
+.factura-tabla-container {
+    max-width: 1200px;
+    width: 100%;
+    height: 500px;
+    border: 2px solid black; /* Borde exterior */
+    display: flex;
+}
+
+/* 📌 Estructura de la tabla con columnas en el orden correcto */
+.factura-tabla {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr 1fr 1fr 1fr; /* Ajustando los anchos según el nuevo orden */
+    grid-template-rows: 15% 85%; /* Encabezado 15%, cuerpo 85% */
+    width: 100%;
+    height: 100%;
+}
+
+/* 📌 Columnas con líneas verticales */
+.factura-col {
+    border-right: 2px solid black; /* Líneas verticales */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+/* 📌 Remueve la última línea vertical en la última columna */
+.factura-col:last-child {
+    border-right: none;
+}
+
+/* 📌 Estilo del encabezado */
+.header {
+    background-color: #d3d3d3; /* Fondo gris */
+    font-weight: bold;
+    border-bottom: 2px solid black; /* Línea horizontal */
+}

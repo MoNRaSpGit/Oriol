@@ -1,52 +1,103 @@
-.factura-container {
+/* ----------------
+   FACTURA CONTAINER
+   ---------------- */
+   .factura-container {
+    position: relative;           /* Contenedor posicionado */
+    height: 1000px;        /* Altura total de la factura */
     border: 2px solid #333;
     padding: 20px;
     border-radius: 8px;
     background-color: #fff;
     max-width: 1200px;
-    margin: auto;
+    margin: 20px auto; /* Centrar horizontalmente */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Línea divisoria */
-.linea-divisoria {
-    width: 100%;
-    height: 2px;
-    background-color: black;
-    margin: 0;
-}
-
-/* Cabecera */
-.factura-header {
-    width: 100%;
-    height: 100%;
+  }
+  
+  /* ----------------
+     HEADER
+     ---------------- */
+  .factura-header {
+    /* Mantén tu estilo original */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 30px; /* Espaciado entre elementos */
-}
-
-/* Cuerpo */
-.factura-body {
-    width: 100%;
-    text-align: center;
-    padding: 20px 0;
-}
-
-/* Pie de página */
-.factura-footer {
-    width: 100%;
-    text-align: center;
-    padding: 10px 0;
-}
-
-/* Contenedor que agrupa logo y dueño */
-.logo-dueno-container {
+    gap: 30px;
+  }
+  
+  .logo-dueno-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-}
+  }
+  
+  .factura-logo {
+    width: 150px;
+    height: auto;
+  }
+  
+  /* ----------------
+     CUERPO (BODY)
+     ---------------- */
+  .factura-body {
+    /* Mantén altura de 500px + scroll */
+    width: 100%;
+    height: 500px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    /* El contenido (tabla) se mostrará aquí */
+  }
+  
+  .factura-body table {
+    width: 100%;
+    margin: 0;
+  }
+  
+  /* Fondo gris suave para encabezados de la tabla */
+  .factura-body th {
+    background-color: #c0bebe;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: top;
+  }
+  
+  .factura-body td {
+    text-align: center;
+    padding: 8px;
+    vertical-align: top;
+  }
+  
+  .factura-body tr {
+    height: auto;
+  }
+  
+  /* Si usas .thead-light con Bootstrap */
+  .thead-light th {
+    background-color: rgb(196, 194, 194);
+  }
+  
+  /* ----------------
+     LÍNEA DIVISORIA
+     ---------------- */
+  .factura-linea-footer {
+    position: absolute;  /* Anclado dentro de .factura-container */
+    left: 0;
+    right: 0;
+    bottom: 120px;       /* Se ubica justo arriba del pie, que es de 100px de alto + 20px de margen */
+    height: 2px;
+    background-color: #000;
+    margin: 0;
+  }
 
 
-
+  @media print {
+    /* Ocultamos todo lo que tenga la clase .col-eliminar */
+    .col-eliminar {
+      display: none !important;
+    }
+  }
+  
+  
+  

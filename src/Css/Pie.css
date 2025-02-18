@@ -1,0 +1,70 @@
+/* ----------------
+     FOOTER ESTILOS
+   ---------------- */
+   .factura-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 120px;  /* Más espacio */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Pie de la factura con 3 columnas */
+  .pie-rect {
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    box-sizing: border-box;
+  }
+  
+  /* Cada columna dentro del pie */
+  .pie-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  /* Sección de totales con mayor tamaño */
+  .pie-totales {
+    align-items: flex-start;
+    justify-content: center;
+    padding: 15px;
+    font-size: 18px;
+  }
+  
+  /* Cada línea del total */
+  .total-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px; /* Espacio entre cada línea */
+  }
+  
+  /* Sub total, IVA y Total alineados correctamente */
+  .total-label {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .total-value {
+    flex: 1;
+    text-align: right;
+  }
+  
+  /* Aumentar el total final para destacarlo */
+  .total-final {
+    font-size: 20px;
+    color: #d9534f; /* Rojo para resaltar */
+  }
+  
