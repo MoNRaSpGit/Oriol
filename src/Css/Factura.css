@@ -3,7 +3,7 @@
    ---------------- */
    .factura-container {
     position: relative;           /* Contenedor posicionado */
-    height: 1000px;        /* Altura total de la factura */
+    height: 1073px;        /* Altura total de la factura */
     border: 2px solid #333;
     padding: 20px;
     border-radius: 8px;
