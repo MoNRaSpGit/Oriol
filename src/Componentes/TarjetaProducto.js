@@ -4,7 +4,8 @@ import { addOrUpdateProduct, updateProductQuantity, removeProduct, deleteProduct
 import { Button, Modal } from "react-bootstrap";
 import { FaFileInvoice, FaPlus, FaMinus, FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
-import logoOrio from "../Img/logoOriol2.png"; // ✅ Importamos la imagen por defecto
+import logoOrio from "../Img/logoOriol2.png"; // ✅ Imagen por defecto
+import "../Css/TarjetasProducto.css"; // ✅ Importamos los estilos actualizados
 
 const TarjetaProducto = ({ producto, onEdit }) => {
   const dispatch = useDispatch();
@@ -44,14 +45,21 @@ const TarjetaProducto = ({ producto, onEdit }) => {
     <div className="col-md-4 mb-4">
       <div className="card shadow-sm">
         <img 
-          src={producto.image && producto.image.trim() !== "" ? producto.image : logoOrio} // ✅ Usamos la imagen por defecto
+          src={producto.image && producto.image.trim() !== "" ? producto.image : logoOrio} // ✅ Imagen por defecto
           alt={producto.name} 
           className="card-img-top img-fluid product-image" 
         />
+        
+        {/* 🔹 Línea Divisoria Imagen-Contenido */}
+        <div className="divisor"></div>
+
         <div className="card-body text-center">
           <h5 className="card-title">{producto.name}</h5>
           <p className="card-text">{producto.description}</p>
           <p className="card-text fw-bold">${producto.price}</p>
+
+          {/* 🔹 Línea Divisoria Contenido-Botones */}
+          <div className="divisor-botones"></div>
 
           {cantidad > 0 ? (
             <div className="cantidad-container">
@@ -64,17 +72,17 @@ const TarjetaProducto = ({ producto, onEdit }) => {
               </Button>
             </div>
           ) : (
-            <>
-              <Button className="btn btn-primary m-1" onClick={handleAgregar}>
+            <div className="botones-container">
+              <Button className="btn btn-agregar" onClick={handleAgregar}>
                 <FaFileInvoice className="me-1" /> Agregar
               </Button>
-              <Button className="btn btn-warning m-1" onClick={() => onEdit(producto)}>
+              <Button className="btn btn-editar" onClick={() => onEdit(producto)}>
                 <FaEdit className="me-1" /> Editar
               </Button>
-              <Button className="btn btn-danger m-1" onClick={() => setShowModal(true)}>
+              <Button className="btn btn-eliminar" onClick={() => setShowModal(true)}>
                 <FaTrash className="me-1" /> Eliminar
               </Button>
-            </>
+            </div>
           )}
         </div>
       </div>
