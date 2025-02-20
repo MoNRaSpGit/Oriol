@@ -80,15 +80,11 @@ function App() {
           {/* Rutas protegidas */}
           <Route
             path="/productos"
-            element={
-              isAuthenticated ? <Productos /> : <Navigate to="/" />
-            }
+            element={isAuthenticated ? <Productos /> : <Navigate to="/" />}
           />
           <Route
             path="/factura"
-            element={
-              isAuthenticated ? <Factura /> : <Navigate to="/" />
-            }
+            element={isAuthenticated ? <Factura /> : <Navigate to="/" />}
           />
 
           {/* Si acceden a una ruta inexistente, redirigimos a "/". */}

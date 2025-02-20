@@ -1,17 +1,18 @@
+// src/index.js
 import React from "react";
-import ReactDOM from "react-dom/client"; // 👈 Importa createRoot
+import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./Store/store";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
-import * as serviceWorkerRegistration from "./Componentes/serviceWorker"; // 👈 Importamos el serviceWorker
+import * as serviceWorkerRegistration from "./serviceWorker"; // Importamos el serviceWorker
 
-const root = ReactDOM.createRoot(document.getElementById("root")); // 👈 Usa createRoot()
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <App />
   </Provider>
 );
 
-// 🔹 Habilitar Service Worker para PWA
+// Habilitar Service Worker para PWA
 serviceWorkerRegistration.register();
