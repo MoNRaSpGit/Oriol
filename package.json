@@ -23,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron-build": "electron-builder"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +47,27 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "electron": "^34.2.0",
+    "electron-builder": "^25.1.8",
     "gh-pages": "^6.3.0"
+  },
+  "build": {
+    "appId": "com.oriol.facturacion",
+    "productName": "Oriol Facturación",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "public/logo192.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "public/logo192.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "public/logo192.png"
+    }
   }
 }
