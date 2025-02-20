@@ -39,7 +39,7 @@ function Login() {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit} autoComplete="off">
-        <h2 className="login-title">Iniciar Sesión</h2>
+        <h2 className="login-title">Iniciar Sesiónnnn</h2>
 
         <div className="form-group mb-3">
           <label>Usuario</label>
