@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../Slice/productsSlice";
 import { FaTimes } from "react-icons/fa";
+import { Button, Modal, Form } from "react-bootstrap";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../Css/Factura.css";
 import "../Css/logo.css";
@@ -14,9 +16,41 @@ import logoOrio from "../Img/logoOriol2.png";
 
 const Factura = () => {
   const dispatch = useDispatch();
-  const productosSeleccionados = useSelector((state) => state.products.productosSeleccionados) || [];
+  const productosSeleccionados = useSelector(
+    (state) => state.products.productosSeleccionados
+  ) || [];
 
-  // Si no hay productos en la factura, mostramos un mensaje
+  // 1) Estado para datos del rectángulo (valores predeterminados).
+  //    Cambiamos "numero" por "fecha" con valor inicial "20/02/2025".
+  const [datosFactura, setDatosFactura] = useState({
+    rutEmisor: "4587854",
+    eFacture: "e-Facture", // NO editable
+    serie: "A", // NO editable
+    fecha: "20/02/2025", // Editable
+    pago: "Contado", // NO editable
+    moneda: "UYU", // NO editable
+
+    rutReceptor: "154845845",
+    nombreCliente: "Cliente final",
+    direccionCliente: "No corresponde",
+    ubicacionCliente: "TACUAREMBO (TACUAREMBO), URUGUAY",
+  });
+
+  // 2) Estado para controlar apertura/cierre del modal
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  // 3) Manejar cambios en los inputs del modal
+  const handleInputChange = (e) => {
+    setDatosFactura({
+      ...datosFactura,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // 4) Si no hay productos, mostramos un mensaje simple
   if (!productosSeleccionados.length) {
     return (
       <div className="factura-container">
@@ -26,7 +60,7 @@ const Factura = () => {
     );
   }
 
-  // Cálculo de Totales
+  // 5) Cálculo de Totales
   const subtotal = productosSeleccionados.reduce(
     (acc, producto) => acc + (producto.precio * producto.cantidad || 0),
     0
@@ -34,7 +68,7 @@ const Factura = () => {
   const ivaTotal = 0.0; // IVA fijo en 0.00
   const total = subtotal + ivaTotal;
 
-  // Eliminar un producto solamente de la factura (no de la base de datos)
+  // 6) Eliminar un producto de la factura (no de la base de datos)
   const handleEliminarDeFactura = (codigo) => {
     dispatch(removeProduct(codigo));
   };
@@ -45,7 +79,11 @@ const Factura = () => {
       <div className="factura-header">
         <div className="logo-dueno-container">
           <div className="factura-logo-container">
-            <img src={logoOrio} alt="Logo de la empresa" className="factura-logo" />
+            <img
+              src={logoOrio}
+              alt="Logo de la empresa"
+              className="factura-logo"
+            />
           </div>
           <div className="dueno">
             <div className="dueno-nombre">Oriol Ahirton Acuña</div>
@@ -54,31 +92,53 @@ const Factura = () => {
           </div>
         </div>
 
-        <div className="header-box">
-          <div className="header-row header-rut">RUT EMISOR: 4587854</div>
-          <div className="header-row header-efacture">e-Facture</div>
+        {/* 
+          RECTÁNGULO DE INFORMACIÓN
+          Ahora es clickeable para abrir el modal y editar datos
+        */}
+        <div
+          className="header-box"
+          style={{ cursor: "pointer" }}
+          onClick={handleShowModal}
+        >
+          {/* RUT Emisor */}
+          <div className="header-row header-rut">
+            RUT EMISOR: {datosFactura.rutEmisor}
+          </div>
 
-          {/* Fila combinada de títulos y valores */}
+          {/* e-Facture (no editable) */}
+          <div className="header-row header-efacture">
+            {datosFactura.eFacture}
+          </div>
+
+          {/* Fila combinada: SERIE, FECHA, PAGO, MONEDA */}
           <div className="header-multi">
             <div className="header-titles-values">
               <div className="header-col header-title">SERIE</div>
-              <div className="header-col header-title">NÚMERO</div>
+              <div className="header-col header-title">FECHA</div>
               <div className="header-col header-title">PAGO</div>
               <div className="header-col header-title">MONEDA</div>
             </div>
             <div className="header-titles-values">
-              <div className="header-col header-value">A</div>
-              <div className="header-col header-value">1458754</div>
-              <div className="header-col header-value">Contado</div>
-              <div className="header-col header-value">UYU</div>
+              <div className="header-col header-value">{datosFactura.serie}</div>
+              <div className="header-col header-value">{datosFactura.fecha}</div>
+              <div className="header-col header-value">{datosFactura.pago}</div>
+              <div className="header-col header-value">
+                {datosFactura.moneda}
+              </div>
             </div>
           </div>
 
-          <div className="header-row header-receptor">RUT RECEPTOR: 154845845</div>
+          {/* RUT Receptor */}
+          <div className="header-row header-receptor">
+            RUT RECEPTOR: {datosFactura.rutReceptor}
+          </div>
+
+          {/* Mostrar "Nombre Cliente:" y "Dirección:" */}
           <div className="header-row header-cliente">
-            <div>Nombre Cliente</div>
-            <div>Dirección Cliente</div>
-            <div>TACUAREMBO (TACUAREMBO), URUGUAY</div>
+            <div>Nombre Cliente: {datosFactura.nombreCliente}</div>
+            <div>Dirección: {datosFactura.direccionCliente}</div>
+            <div>{datosFactura.ubicacionCliente}</div>
           </div>
         </div>
       </div>
@@ -139,8 +199,8 @@ const Factura = () => {
         <div className="pie-rect">
           {/* Columna 1 */}
           <div className="pie-col">
-            <div>Desarrollado por codeLab</div>
-            <div>Desarrollo de factura</div>
+            <div>Desarrollado por LogicLab</div>
+            <div>Sistemas de facturacion</div>
             <div>Cel: 092457845</div>
           </div>
 
@@ -164,6 +224,90 @@ const Factura = () => {
           </div>
         </div>
       </div>
+
+      {/* MODAL PARA EDITAR DATOS DEL "RECTÁNGULO" */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Datos del Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            {/* RUT EMISOR */}
+            <Form.Group className="mb-3">
+              <Form.Label>RUT Emisor</Form.Label>
+              <Form.Control
+                type="text"
+                name="rutEmisor"
+                value={datosFactura.rutEmisor}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            {/* FECHA (en vez de número) */}
+            <Form.Group className="mb-3">
+              <Form.Label>Fecha</Form.Label>
+              <Form.Control
+                type="text"
+                name="fecha"
+                value={datosFactura.fecha}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            {/* RUT RECEPTOR */}
+            <Form.Group className="mb-3">
+              <Form.Label>RUT Receptor</Form.Label>
+              <Form.Control
+                type="text"
+                name="rutReceptor"
+                value={datosFactura.rutReceptor}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            {/* NOMBRE CLIENTE */}
+            <Form.Group className="mb-3">
+              <Form.Label>Nombre Cliente</Form.Label>
+              <Form.Control
+                type="text"
+                name="nombreCliente"
+                value={datosFactura.nombreCliente}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            {/* DIRECCIÓN CLIENTE */}
+            <Form.Group className="mb-3">
+              <Form.Label>Dirección Cliente</Form.Label>
+              <Form.Control
+                type="text"
+                name="direccionCliente"
+                value={datosFactura.direccionCliente}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+
+            {/* UBICACIÓN */}
+            <Form.Group className="mb-3">
+              <Form.Label>Ubicación</Form.Label>
+              <Form.Control
+                type="text"
+                name="ubicacionCliente"
+                value={datosFactura.ubicacionCliente}
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={handleCloseModal}>
+            Guardar Cambios
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

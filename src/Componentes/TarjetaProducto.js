@@ -19,9 +19,9 @@ const TarjetaProducto = ({ producto, onEdit }) => {
       return;
     }
     setCantidad(1);
-    dispatch(addOrUpdateProduct({ 
-      codigo: producto.id, 
-      ...producto 
+    dispatch(addOrUpdateProduct({
+      codigo: producto.id,
+      ...producto
     }));
   };
 
@@ -44,14 +44,13 @@ const TarjetaProducto = ({ producto, onEdit }) => {
   return (
     <div className="col-md-4 mb-4">
       <div className="card shadow-sm">
-        <img 
+        <img
           src={producto.image && producto.image.trim() !== "" ? producto.image : logoOrio} // ✅ Imagen por defecto
-          alt={producto.name} 
-          className="card-img-top img-fluid product-image" 
+          alt={producto.name}
+          className="card-img-top img-fluid product-image"
         />
-        
-        {/* 🔹 Línea Divisoria Imagen-Contenido */}
-        <div className="divisor"></div>
+
+       
 
         <div className="card-body text-center">
           <h5 className="card-title">{producto.name}</h5>
@@ -73,9 +72,10 @@ const TarjetaProducto = ({ producto, onEdit }) => {
             </div>
           ) : (
             <div className="botones-container">
-              <Button className="btn btn-agregar" onClick={handleAgregar}>
+              <Button className="mi-boton-agregar" onClick={handleAgregar}>
                 <FaFileInvoice className="me-1" /> Agregar
               </Button>
+
               <Button className="btn btn-editar" onClick={() => onEdit(producto)}>
                 <FaEdit className="me-1" /> Editar
               </Button>
@@ -98,7 +98,7 @@ const TarjetaProducto = ({ producto, onEdit }) => {
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>No</Button>
           <Button variant="danger" onClick={() => {
-            dispatch(deleteProduct(producto.id)); 
+            dispatch(deleteProduct(producto.id));
             setShowModal(false);
             toast.success("✅ Producto eliminado de la base de datos.");
           }}>

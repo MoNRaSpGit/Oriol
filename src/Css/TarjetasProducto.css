@@ -7,6 +7,12 @@
     background-color: #ffffff;
     padding-top: 15px;
     border: 1px solid #ddd;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Para alinear contenido y botones */
+    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+  
   }
   
   .card:hover {
@@ -40,6 +46,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    flex-grow: 1; /* Hace que el contenido ocupe el máximo espacio posible */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px; /* Ajusta este valor según la altura mínima deseada */
+
   }
   
   /* 📌 Línea divisoria antes de los botones */
@@ -91,8 +104,8 @@
   
   /* 📌 Botón "Agregar" */
   .btn-agregar {
-    background-color: #00509d;
-    border: none;
+    background-color: #00509d !important;
+    border: none !important;
     color: #fff;
   }
   
@@ -102,8 +115,8 @@
   
   /* 📌 Botón "Editar" */
   .btn-editar {
-    background-color: #6c757d;
-    border: none;
+    background-color: #6c757d !important;
+    border: none !important;
     color: #fff;
   }
   
@@ -113,12 +126,30 @@
   
   /* 📌 Botón "Eliminar" */
   .btn-eliminar {
-    background-color: #922b21;
-    border: none;
+    background-color: #922b21 !important;
+    border: none !important;
     color: #fff;
   }
   
   .btn-eliminar:hover {
     background-color: #7b1c15;
   }
+
+
+
+
+  .mi-boton-agregar {
+    background-color: #00509d  !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 15px !important;
+    font-size: 0.9rem !important;
+    border-radius: 8px !important;
+    transition: background-color 0.3s ease-in-out !important;
+  }
+  
+  .mi-boton-agregar:hover {
+    background-color: #003d73 !important;
+  }
+  
   
