@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import store from "./Store/store";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import * as serviceWorkerRegistration from "./serviceWorker"; // 👈 Importamos el serviceWorker
 
 const root = ReactDOM.createRoot(document.getElementById("root")); // 👈 Usa createRoot()
 root.render(
@@ -12,3 +12,6 @@ root.render(
     <App />
   </Provider>
 );
+
+// 🔹 Habilitar Service Worker para PWA
+serviceWorkerRegistration.register();
