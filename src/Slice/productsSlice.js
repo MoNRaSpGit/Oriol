@@ -1,5 +1,16 @@
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 
+
+
+// Definir variables directamente en el Slice
+const local = "http://localhost:3001";
+const produccion = "https://oriol-backend.onrender.com";
+
+// Elige cuál usar (cambia manualmente)
+const API_BASE_URL = produccion; // ⚠️ Cambia entre 'local' y 'produccion'
+
+
+
 const initialState = {
   products: [],
   productosSeleccionados: [],
@@ -10,11 +21,11 @@ const initialState = {
 // 🔹 Thunk para obtener productos desde el backend
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
   try {
-    const response = await fetch("http://localhost:3001/products");
+    const response = await fetch(`${API_BASE_URL}/products`);
     if (!response.ok) throw new Error("Error al obtener productos");
     const data = await response.json();
 
-    console.log("📦 Productos obtenidos:", data);
+   // console.log("📦 Productos obtenidos:", data);
     return data;
   } catch (error) {
     throw error.message;
@@ -24,7 +35,7 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async ()
 // 🔹 Thunk para agregar un nuevo producto a la base de datos
 export const addProductToDB = createAsyncThunk("products/addProduct", async (producto, { rejectWithValue }) => {
   try {
-    const response = await fetch("http://localhost:3001/products", {
+    const response = await fetch(`${API_BASE_URL}/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(producto),
@@ -33,7 +44,7 @@ export const addProductToDB = createAsyncThunk("products/addProduct", async (pro
     if (!response.ok) throw new Error("Error al agregar producto");
 
     const newProduct = await response.json();
-    console.log("✅ Producto agregado a la BD:", newProduct);
+   // console.log("✅ Producto agregado a la BD:", newProduct);
     return newProduct;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -43,7 +54,7 @@ export const addProductToDB = createAsyncThunk("products/addProduct", async (pro
 // 🔹 Thunk para actualizar un producto en la base de datos
 export const updateProduct = createAsyncThunk("products/updateProduct", async (producto, { rejectWithValue }) => {
   try {
-    const response = await fetch(`http://localhost:3001/products/${producto.id}`, {
+    const response = await fetch(`${API_BASE_URL}/products/${producto.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(producto),
@@ -51,7 +62,7 @@ export const updateProduct = createAsyncThunk("products/updateProduct", async (p
 
     if (!response.ok) throw new Error("Error al actualizar producto");
 
-    console.log("✅ Producto actualizado:", producto);
+   // console.log("✅ Producto actualizado:", producto);
     return producto;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -61,10 +72,10 @@ export const updateProduct = createAsyncThunk("products/updateProduct", async (p
 // 🔹 Thunk para eliminar un producto de la base de datos
 export const deleteProduct = createAsyncThunk("products/deleteProduct", async (id, { rejectWithValue }) => {
   try {
-    const response = await fetch(`http://localhost:3001/products/${id}`, { method: "DELETE" });
+    const response = await fetch(`${API_BASE_URL}/products/${id}`, { method: "DELETE" });
     if (!response.ok) throw new Error("Error al eliminar producto");
 
-    console.log(`🗑️ Producto eliminado con ID: ${id}`);
+    //console.log(`🗑️ Producto eliminado con ID: ${id}`);
     return id; // Devolvemos el ID eliminado
   } catch (error) {
     return rejectWithValue(error.message);
@@ -127,7 +138,7 @@ const productsSlice = createSlice({
     builder
       .addCase(addProductToDB.fulfilled, (state, action) => {
         state.products.push(action.payload);
-        console.log("✅ Producto agregado al store global:", state.products);
+        //console.log(" Producto agregado al store global:", state.products);
       })
       .addCase(addProductToDB.rejected, (state, action) => {
         console.error("❌ Error al agregar producto:", action.payload);
@@ -137,7 +148,7 @@ const productsSlice = createSlice({
         if (index !== -1) {
           state.products[index] = action.payload;
         }
-        console.log("✅ Producto actualizado en el store global:", state.products);
+        //console.log(" Producto actualizado en el store global:", state.products);
       })
       .addCase(updateProduct.rejected, (state, action) => {
         console.error("❌ Error al actualizar producto:", action.payload);
@@ -149,7 +160,7 @@ const productsSlice = createSlice({
         state.status = "succeeded";
         state.products = action.payload;
 
-        console.log("✅ Productos guardados en el store global:", state.products);
+        //console.log(" Productos guardados en el store global:", state.products);
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
@@ -158,7 +169,7 @@ const productsSlice = createSlice({
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.products = state.products.filter(product => product.id !== action.payload);
 
-        console.log("✅ Producto eliminado del store global:", state.products);
+       // console.log(" Producto eliminado del store global:", state.products);
       })
       .addCase(deleteProduct.rejected, (state, action) => {
         console.error("❌ Error al eliminar producto:", action.payload);

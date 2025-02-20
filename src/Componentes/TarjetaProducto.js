@@ -100,7 +100,7 @@ const TarjetaProducto = ({ producto, onEdit }) => {
           <Button variant="danger" onClick={() => {
             dispatch(deleteProduct(producto.id));
             setShowModal(false);
-            toast.success("✅ Producto eliminado de la base de datos.");
+            toast.success("Producto eliminado de la base de datos.");
           }}>
             Sí, eliminar
           </Button>

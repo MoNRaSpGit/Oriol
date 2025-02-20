@@ -24,13 +24,13 @@ const Factura = () => {
   //    Cambiamos "numero" por "fecha" con valor inicial "20/02/2025".
   const [datosFactura, setDatosFactura] = useState({
     rutEmisor: "4587854",
-    eFacture: "e-Facture", // NO editable
+    eFacture: "e-Factura", // NO editable
     serie: "A", // NO editable
     fecha: "20/02/2025", // Editable
     pago: "Contado", // NO editable
     moneda: "UYU", // NO editable
 
-    rutReceptor: "154845845",
+    rutReceptor: "No corresponde",
     nombreCliente: "Cliente final",
     direccionCliente: "No corresponde",
     ubicacionCliente: "TACUAREMBO (TACUAREMBO), URUGUAY",
@@ -200,8 +200,8 @@ const Factura = () => {
           {/* Columna 1 */}
           <div className="pie-col">
             <div>Desarrollado por LogicLab</div>
-            <div>Sistemas de facturacion</div>
-            <div>Cel: 092457845</div>
+            <div>Sistema de facturación</div>
+            <div>Cel: 092945696</div>
           </div>
 
           {/* Columna 2 */}

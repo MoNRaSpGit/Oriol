@@ -1,12 +1,17 @@
-// src/Slice/LoginSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Acción asíncrona para iniciar sesión con la API (endpoint /login)
+// Definir variables directamente en el Slice
+const local = "http://localhost:3001";
+const produccion = "https://oriol-backend.onrender.com";
+
+// Elige cuál usar (cambia manualmente)
+const API_BASE_URL = produccion; // ⚠️ Cambia entre 'local' y 'produccion'
+
 export const loginUser = createAsyncThunk(
   "login/loginUser",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3001/login", {
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -17,12 +22,10 @@ export const loginUser = createAsyncThunk(
       const data = await response.json();
 
       if (!response.ok) {
-        // Si el servidor retorna error o credenciales inválidas
         return rejectWithValue(data.error || "Credenciales inválidas");
       }
 
-      // Si la respuesta es OK, retornamos los datos del usuario
-      return data.usuario; // { id, username, ... }
+      return data.usuario;
     } catch (error) {
       return rejectWithValue("Error de conexión con el servidor.");
     }
@@ -32,10 +35,10 @@ export const loginUser = createAsyncThunk(
 const loginSlice = createSlice({
   name: "login",
   initialState: {
-    isAuthenticated: false, // Indica si el usuario está logueado
-    user: null,             // Datos del usuario (id, username, etc.)
-    loading: false,         // Para estado de carga
-    error: null,            // Mensaje de error si falla el login
+    isAuthenticated: false,
+    user: null,
+    loading: false,
+    error: null,
   },
   reducers: {
     logout: (state) => {
@@ -46,19 +49,16 @@ const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Petición en curso
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      // Petición exitosa
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload;
         state.error = null;
       })
-      // Petición con error
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
