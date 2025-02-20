@@ -1,22 +1,51 @@
-.dueno {
-    width: 280px;
-    height: 100px;
-       
-    margin-top: -70px;
-    margin-bottom: 19px;
-    position: relative; /* Añade posición relativa */
-    z-index: 2; /* Asigna un z-index mayor */
-}
-.dueno-nombre {
-    font-size: 14px; /* Tamaño de fuente */
-    
-    line-height: 1.2; /* Espaciado entre líneas */
-    text-align: center; /* Alineación del texto a la izquierda */
+/* ✅ Estilos para IMPRESIÓN */
+@media print {
+    .dueno {
+        width: 280px;
+        height: 100px;
+        margin-top: -70px;
+        margin-bottom: 19px;
+        position: relative; /* Añade posición relativa */
+        z-index: 2; /* Asigna un z-index mayor */
+    }
+
+    .dueno-nombre {
+        font-size: 14px; /* Tamaño de fuente */
+        line-height: 1.2; /* Espaciado entre líneas */
+        text-align: center; /* Alineación del texto */
+    }
+
+    .dueno-telefono {
+        font-size: 14px; /* Tamaño de fuente */
+        font-weight: normal; /* Texto normal */
+        line-height: 1.2; /* Espaciado entre líneas */
+        text-align: center; /* Alineación del texto */
+    }
 }
 
-.dueno-telefono {
-    font-size: 14px; /* Tamaño de fuente */
-    font-weight: normal; /* Texto normal */
-    line-height: 1.2; /* Espaciado entre líneas */
-    text-align: center; /* Alineación del texto a la izquierda */
+/* ✅ Estilos para PANTALLA (misma configuración por ahora) */
+@media screen {
+    .dueno {
+        
+        width: 280px;
+        height: 70px;
+        margin-top: -40px;
+        margin-bottom: 19px;
+        position: relative;
+        z-index: 2;
+        margin-left: 100px;
+    }
+
+    .dueno-nombre {
+        font-size: 14px;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .dueno-telefono {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.2;
+        text-align: center;
+    }
 }
