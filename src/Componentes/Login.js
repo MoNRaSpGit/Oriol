@@ -3,39 +3,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../Slice/LoginSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "../Css/login.css"; // Tu CSS de login con estilos
+import "../Css/login.css"; // Estilos del login
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  // Obtenemos del estado global si hay error, si está cargando, etc.
+  // Estado global de autenticación
   const { loading, error, isAuthenticated } = useSelector((state) => state.login);
 
-  // Campos del formulario
+  // Estado local del formulario
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  // Manejar Submit
+  // 🔹 Manejo del Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Disparamos la acción asíncrona
+
+    if (!username.trim() || !password.trim()) {
+      toast.error("⚠️ Usuario y contraseña son obligatorios.");
+      return;
+    }
+
+    // Disparamos la acción de login
     const resultAction = await dispatch(loginUser({ username, password }));
     
-    // Si el login fue exitoso (fulfilled), redirigimos a "/productos"
     if (loginUser.fulfilled.match(resultAction)) {
-      toast.success("¡Login exitoso!");
-      navigate("/productos"); // Redirige a Productos
+      toast.success("✅ ¡Login exitoso!");
+      navigate("/productos");
     } else {
-      // Si fue rejected, el error está en "error" del slice
-      toast.error(error || "Error al iniciar sesión");
+      toast.error(resultAction.payload || "❌ Error al iniciar sesión.");
     }
   };
 
   return (
     <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit} autoComplete="off">
         <h2 className="login-title">Iniciar Sesión</h2>
 
         <div className="form-group mb-3">
@@ -46,6 +49,8 @@ function Login() {
             placeholder="Ingresa tu usuario"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            autoComplete="new-username" // 🔹 Evita credenciales viejas
+            spellCheck="false"
             required
           />
         </div>
@@ -58,6 +63,7 @@ function Login() {
             placeholder="Ingresa tu contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="new-password" // 🔹 Evita autocompletado de credenciales viejas
             required
           />
         </div>

@@ -64,7 +64,7 @@ const Productos = () => {
       // EDITAMOS
       dispatch(updateProduct({ ...productoSeleccionado, ...nuevoProducto }))
         .then(() => {
-          toast.success("✅ Producto actualizado correctamente.");
+          toast.success(" Producto actualizado correctamente.");
         })
         .catch(() => {
           toast.error("❌ Error al actualizar producto.");
@@ -73,7 +73,7 @@ const Productos = () => {
       // CREAMOS
       dispatch(addProductToDB(nuevoProducto))
         .then(() => {
-          toast.success("✅ Producto agregado correctamente.");
+          toast.success(" Producto agregado correctamente.");
         })
         .catch(() => {
           toast.error("❌ Error al agregar producto.");
