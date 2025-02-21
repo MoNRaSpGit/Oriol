@@ -1,155 +1,157 @@
 /* 📌 Estilos generales de la tarjeta */
 .card {
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    background-color: #ffffff;
-    padding-top: 15px;
-    border: 1px solid #ddd;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background-color: #ffffff;
+  padding-top: 15px;
+  border: 1px solid #ddd;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Para alinear contenido y botones */
-    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
-  
-  }
-  
-  .card:hover {
-    transform: scale(1.03);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* 📌 Imagen del producto */
-  .product-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-  }
-  
-  /* 📌 Línea divisoria entre imagen y contenido */
-  .divisor {
-    width: 80%;
-    height: 2px;
-    background-color: #ddd;
-    margin: 10px auto;
-    border-radius: 5px;
-  }
-  
-  /* 📌 Contenedor del contenido de la tarjeta */
-  .card-body {
-    padding: 15px;
-    background-color: #fff;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 🔹 Mantiene la estructura uniforme */
+  height: 100% !important; /* 🔹 Todas las tarjetas tendrán la misma altura */
+}
 
-    flex-grow: 1; /* Hace que el contenido ocupe el máximo espacio posible */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 250px; /* Ajusta este valor según la altura mínima deseada */
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
 
-  }
-  
-  /* 📌 Línea divisoria antes de los botones */
-  .divisor-botones {
-    width: 90%;
-    height: 1px;
-    background-color: #ccc;
-    margin: 15px auto;
-    border-radius: 5px;
-  }
-  
-  /* 📌 Título del producto */
-  .card-title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 10px;
-  }
-  
-  /* 📌 Descripción del producto */
-  .card-text {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  /* 📌 Precio */
-  .card-text.fw-bold {
-    font-size: 1.2rem;
-    color: #218838;
-    font-weight: bold;
-  }
-  
-  /* 📌 Contenedor de botones */
-  .botones-container {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-  }
-  
-  /* 📌 Botones */
-  .btn {
-    font-size: 0.9rem;
-    padding: 10px 15px;
-    transition: all 0.3s ease-in-out;
-    border-radius: 8px;
-  }
-  
-  /* 📌 Botón "Agregar" */
-  .btn-agregar {
-    background-color: #00509d !important;
-    border: none !important;
-    color: #fff;
-  }
-  
-  .btn-agregar:hover {
-    background-color: #003d73;
-  }
-  
-  /* 📌 Botón "Editar" */
-  .btn-editar {
-    background-color: #6c757d !important;
-    border: none !important;
-    color: #fff;
-  }
-  
-  .btn-editar:hover {
-    background-color: #5a6268;
-  }
-  
-  /* 📌 Botón "Eliminar" */
-  .btn-eliminar {
-    background-color: #922b21 !important;
-    border: none !important;
-    color: #fff;
-  }
-  
-  .btn-eliminar:hover {
-    background-color: #7b1c15;
-  }
+/* 📌 Imagen del producto */
+.product-image {
+  width: 100%; /* 🔹 Ocupa todo el ancho de la tarjeta */
+  height: 100px; /* 🔹 Tamaño fijo para todas las imágenes */
+  object-fit: contain; /* 🔹 Mantiene la proporción, sin deformar ni recortar */
+  background-color: #f8f9fa; /* 🔹 Fondo gris claro para imágenes pequeñas */
+  display: block; /* 🔹 Evita espacio extra debajo de la imagen */
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
 
+/* 📌 Línea divisoria entre imagen y contenido */
+.divisor {
+  width: 80%;
+  height: 2px;
+  background-color: #ddd;
+  margin: 10px auto;
+  border-radius: 5px;
+}
 
+/* 📌 Contenedor del contenido de la tarjeta */
+.card-body {
+  padding: 15px;
+  background-color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 🔹 Asegura que el contenido comience desde arriba */
+  flex-grow: 1;
+}
 
+/* 📌 Contenedor interno para alinear correctamente la descripción y el precio */
+.card-content {
+  flex-grow: 1; /* 🔹 Permite que el contenido crezca */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 🔹 Alinea nombre, descripción y precio */
+  align-items: center;
+  padding-bottom: 10px; /* 🔹 Espacio antes de la línea divisoria */
+}
 
-  .mi-boton-agregar {
-    background-color: #00509d  !important;
-    color: white !important;
-    border: none !important;
-    padding: 10px 15px !important;
-    font-size: 0.9rem !important;
-    border-radius: 8px !important;
-    transition: background-color 0.3s ease-in-out !important;
-  }
-  
-  .mi-boton-agregar:hover {
-    background-color: #003d73 !important;
-  }
-  
-  
+/* 📌 Título del producto */
+.card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+/* 📌 Descripción del producto */
+.card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px; /* 🔹 Reduce espacio entre la descripción y el precio */
+}
+
+/* 📌 Precio */
+.card-text.fw-bold {
+  font-size: 1.2rem;
+  color: #218838;
+  font-weight: bold;
+  margin-bottom: 8px; /* 🔹 Espacio antes de la línea divisoria */
+}
+
+.divisor-botones {
+  width: 90%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 5px auto;
+  border-radius: 5px;
+}
+
+/* 📌 Contenedor de botones */
+.botones-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto; /* 🔹 Esto empuja los botones hacia abajo */
+}
+
+/* 📌 Botones */
+.btn {
+  font-size: 0.9rem;
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+}
+
+/* 📌 Botón "Agregar" */
+.btn-agregar {
+  background-color: #00509d !important;
+  border: none !important;
+  color: #fff;
+}
+
+.btn-agregar:hover {
+  background-color: #003d73;
+}
+
+/* 📌 Botón "Editar" */
+.btn-editar {
+  background-color: #6c757d !important;
+  border: none !important;
+  color: #fff;
+}
+
+.btn-editar:hover {
+  background-color: #5a6268;
+}
+
+/* 📌 Botón "Eliminar" */
+.btn-eliminar {
+  background-color: #922b21 !important;
+  border: none !important;
+  color: #fff;
+}
+
+.btn-eliminar:hover {
+  background-color: #7b1c15;
+}
+
+/* 📌 Botón "Agregar" mejorado */
+.mi-boton-agregar {
+  background-color: #00509d  !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 15px !important;
+  font-size: 0.9rem !important;
+  border-radius: 8px !important;
+  transition: background-color 0.3s ease-in-out !important;
+}
+
+.mi-boton-agregar:hover {
+  background-color: #003d73 !important;
+}

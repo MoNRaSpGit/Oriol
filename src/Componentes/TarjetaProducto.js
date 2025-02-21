@@ -50,17 +50,19 @@ const TarjetaProducto = ({ producto, onEdit }) => {
           className="card-img-top img-fluid product-image"
         />
 
-       
-
         <div className="card-body text-center">
-          <h5 className="card-title">{producto.name}</h5>
-          <p className="card-text">{producto.description}</p>
-          <p className="card-text fw-bold">${producto.price}</p>
+          {/* 🔹 Agrupamos nombre, descripción y precio */}
+          <div className="card-content">
+            <h5 className="card-title">{producto.name}</h5>
+            <p className="card-text">{producto.description}</p>
+            <p className="card-text fw-bold">${producto.price}</p>
+          </div>
 
-          {/* 🔹 Línea Divisoria Contenido-Botones */}
+          {/* 🔹 Línea divisoria antes de los botones */}
           <div className="divisor-botones"></div>
 
           {cantidad > 0 ? (
+            /* 🔹 Si el producto ya fue agregado, mostrar los controles de cantidad */
             <div className="cantidad-container">
               <Button variant="outline-secondary" className="btn-cantidad" onClick={incrementarCantidad}>
                 <FaPlus />
@@ -71,11 +73,11 @@ const TarjetaProducto = ({ producto, onEdit }) => {
               </Button>
             </div>
           ) : (
+            /* 🔹 Botones alineados al final */
             <div className="botones-container">
               <Button className="mi-boton-agregar" onClick={handleAgregar}>
                 <FaFileInvoice className="me-1" /> Agregar
               </Button>
-
               <Button className="btn btn-editar" onClick={() => onEdit(producto)}>
                 <FaEdit className="me-1" /> Editar
               </Button>
