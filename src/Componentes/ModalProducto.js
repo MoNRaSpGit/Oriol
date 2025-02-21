@@ -5,11 +5,11 @@ import { Modal, Button, Form } from "react-bootstrap";
 /**
  * Modal con estado local para evitar lag.
  *
- * @param {boolean} show         Indica si se muestra el modal
- * @param {function} onHide      Cierra el modal sin guardar
- * @param {object} initialProducto  Datos iniciales para editar (o vacío para agregar)
- * @param {boolean} isEditMode   true = editar, false = nuevo
- * @param {function} onSave      Se llama al confirmar, pasando el objeto local
+ * @param {boolean} show           Indica si se muestra el modal
+ * @param {function} onHide        Cierra el modal sin guardar
+ * @param {object} initialProducto Datos iniciales para editar (o vacío para agregar)
+ * @param {boolean} isEditMode     true = editar, false = nuevo
+ * @param {function} onSave        Se llama al confirmar, pasando el objeto local
  */
 const ModalProductoLocal = ({
   show,
@@ -38,10 +38,26 @@ const ModalProductoLocal = ({
     }
   }, [initialProducto]);
 
-  // Maneja cambios en los inputs. Actualiza SOLO el estado local
+  // Maneja cambios en los inputs de texto/textarea
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLocalProducto((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Maneja el input de tipo "file" para la imagen (abre explorador de archivos)
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Convertimos el archivo seleccionado a Base64
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setLocalProducto((prev) => ({
+        ...prev,
+        image: reader.result, // Base64
+      }));
+    };
+    reader.readAsDataURL(file);
   };
 
   // Al guardar => llamamos onSave con los datos locales
@@ -67,6 +83,7 @@ const ModalProductoLocal = ({
               name="name"
               value={localProducto.name}
               onChange={handleChange}
+              placeholder="Ingresa el nombre del producto"
             />
           </Form.Group>
 
@@ -78,18 +95,30 @@ const ModalProductoLocal = ({
               name="price"
               value={localProducto.price}
               onChange={handleChange}
+              placeholder="Ingresa el precio"
             />
           </Form.Group>
 
-          {/* IMAGEN */}
+          {/* IMAGEN (Seleccionar archivo) */}
           <Form.Group className="mb-3">
-            <Form.Label>Imagen (URL)</Form.Label>
+            <Form.Label>Imagen</Form.Label>
             <Form.Control
-              type="text"
-              name="image"
-              value={localProducto.image}
-              onChange={handleChange}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
             />
+            {/**
+             * Si quieres mostrar una previsualización de la imagen seleccionada:
+             */}
+            {localProducto.image && localProducto.image.startsWith("data:image/") && (
+              <div style={{ marginTop: "0.5rem" }}>
+                <img
+                  src={localProducto.image}
+                  alt="Vista previa"
+                  style={{ width: "100%", maxHeight: "200px", objectFit: "cover" }}
+                />
+              </div>
+            )}
           </Form.Group>
 
           {/* DESCRIPCIÓN */}
@@ -101,6 +130,7 @@ const ModalProductoLocal = ({
               name="description"
               value={localProducto.description}
               onChange={handleChange}
+              placeholder="Descripción del producto"
             />
           </Form.Group>
         </Form>
