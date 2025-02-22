@@ -1,7 +1,7 @@
 {
   "name": "Oriol",
   "version": "0.1.0",
-  
+  "homepage": "https://monraspgit.github.io/Oriol",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
