@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import store from "./Store/store";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
-import * as serviceWorkerRegistration from "./serviceWorker"; // Importamos el serviceWorker
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,5 +13,17 @@ root.render(
   </Provider>
 );
 
-// Habilitar Service Worker para PWA
-serviceWorkerRegistration.register();
+// ✅ Registrar Service Worker SIN import
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("✅ SW registrado con éxito:", registration.scope);
+      })
+      .catch((error) => {
+        console.error("❌ Error al registrar el Service Worker:", error);
+      });
+  });
+}
+

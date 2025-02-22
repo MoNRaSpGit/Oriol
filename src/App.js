@@ -1,24 +1,37 @@
 // src/App.js
 import React, { useMemo, useState, useEffect } from "react";
 import { HashRouter as Router, Route, Routes, Link, useLocation, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
 import { FaLeaf, FaBox, FaFileInvoice, FaPrint } from "react-icons/fa";
 import Productos from "./Componentes/Productos";
 import Factura from "./Componentes/Factura";
 import Login from "./Componentes/Login";
+import { setTasaDolar } from "../src/Slice/configSlice"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Css/App.css";
 
 function Navbar({ mostrarNavbar }) {
+  const dispatch = useDispatch();
   const productosSeleccionados = useSelector((state) => state.products.productosSeleccionados);
   const memoizedProductosSeleccionados = useMemo(() => productosSeleccionados, [productosSeleccionados]);
+
+  // Leemos la tasa actual por si queremos mostrarla en el input
+  const tasaDolar = useSelector((state) => state.config.tasaDolar);
+
+  const [mostrarCotizacion, setMostrarCotizacion] = useState(false);
 
   const location = useLocation();
 
   const handlePrint = () => {
     document.body.classList.add("no-navbar");
     window.print();
+  };
+
+  // Función para actualizar la tasa
+  const handleChangeTasa = (e) => {
+    const valor = parseFloat(e.target.value);
+    dispatch(setTasaDolar(isNaN(valor) ? 0 : valor));
   };
 
   return (
@@ -28,22 +41,46 @@ function Navbar({ mostrarNavbar }) {
           <Link className="navbar-brand fw-bold text-uppercase" to="/productos">
             <FaLeaf className="me-2" /> Agro Insumos
           </Link>
-          <div className="ms-auto">
+
+          <div className="ms-auto d-flex align-items-center">
             {location.pathname === "/factura" && (
-              <Link className="btn btn-outline-light me-2" to="/productos">
-                <FaBox className="me-1" /> Productos
-              </Link>
+              <>
+                <Link className="btn btn-outline-light me-2" to="/productos">
+                  <FaBox className="me-1" /> Productos
+                </Link>
+                <button className="btn btn-success me-2" onClick={handlePrint}>
+                  <FaPrint className="me-2" /> Imprimir
+                </button>
+
+                {/* Botón para mostrar/ocultar el input de cotización */}
+                <button
+                  className="btn btn-warning me-2"
+                  onClick={() => setMostrarCotizacion(!mostrarCotizacion)}
+                >
+                  Cotización
+                </button>
+
+                {/* Input para cambiar la tasa, se muestra si mostrarCotizacion = true */}
+                {mostrarCotizacion && (
+                  <input
+                    type="number"
+                    className="form-control"
+                    style={{ width: "80px" }}
+                    value={tasaDolar}
+                    onChange={handleChangeTasa}
+                  />
+                )}
+              </>
             )}
-            <Link className="btn btn-primary me-2" to="/factura">
-              <FaFileInvoice className="me-2" /> Ver Factura
-              <span className="badge bg-light text-dark ms-2">
-                {memoizedProductosSeleccionados.length}
-              </span>
-            </Link>
-            {location.pathname === "/factura" && (
-              <button className="btn btn-success" onClick={handlePrint}>
-                <FaPrint className="me-2" /> Imprimir
-              </button>
+
+            {/* 🔹 SOLO se muestra si estamos en /productos */}
+            {location.pathname === "/productos" && (
+              <Link className="btn btn-primary me-2" to="/factura">
+                <FaFileInvoice className="me-2" /> Ver Factura
+                <span className="badge bg-light text-dark ms-2">
+                  {memoizedProductosSeleccionados.length}
+                </span>
+              </Link>
             )}
           </div>
         </div>
@@ -51,6 +88,7 @@ function Navbar({ mostrarNavbar }) {
     )
   );
 }
+
 
 function App() {
   const [mostrarNavbar, setMostrarNavbar] = useState(true);

@@ -98,6 +98,15 @@
       display: none !important;
     }
   }
+
+
+  @media print {
+    .col-eliminar,
+    .col-convertir {
+      display: none !important;
+    }
+  }
+  
   
   
   
