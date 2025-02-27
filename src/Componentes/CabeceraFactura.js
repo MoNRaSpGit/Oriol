@@ -14,9 +14,9 @@ const CabeceraFactura = ({ datosFactura, handleShowModal }) => {
           />
         </div>
         <div className="dueno">
-          <div className="dueno-nombre">Oriol Ahirton Acuña</div>
-          <div className="dueno-nombre">WILSON FERRERIA ALDUNATE 111</div>
-          <div className="dueno-telefono">092457845</div>
+          <div className="dueno-nombre"></div>
+          <div className="dueno-nombre">WILSON FERRERIA Y O.PINTOS</div>
+          <div className="dueno-telefono">46329790 - 098796127</div>
         </div>
       </div>
 

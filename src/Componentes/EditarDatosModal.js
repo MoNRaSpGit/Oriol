@@ -1,4 +1,5 @@
 // src/Componentes/EditarDatosModal.jsx
+
 import React from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
@@ -30,6 +31,19 @@ const EditarDatosModal = ({ show, handleClose, datosFactura, handleInputChange }
               value={datosFactura.fecha}
               onChange={handleInputChange}
             />
+          </Form.Group>
+
+          {/* TIPO DE PAGO (NUEVO) */}
+          <Form.Group className="mb-3">
+            <Form.Label>Tipo de Pago</Form.Label>
+            <Form.Select
+              name="pago"
+              value={datosFactura.pago}
+              onChange={handleInputChange}
+            >
+              <option value="Contado">Contado</option>
+              <option value="Crédito">Crédito</option>
+            </Form.Select>
           </Form.Group>
 
           {/* RUT RECEPTOR */}
