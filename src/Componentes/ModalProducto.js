@@ -1,4 +1,3 @@
-// src/Componentes/ModalProductoLocal.jsx
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
@@ -18,50 +17,55 @@ const ModalProductoLocal = ({
   isEditMode,
   onSave,
 }) => {
-  // Estado local: donde guardamos los datos del formulario
+  // Estado local
   const [localProducto, setLocalProducto] = useState({
     name: "",
     price: "",
     image: "",
     description: "",
+    currency: "UYU", // Por defecto en Pesos
   });
 
   // Al abrir el modal o cambiar 'initialProducto', copiamos sus valores
   useEffect(() => {
+    console.log("Modal - useEffect => initialProducto: ", initialProducto);
+
     if (initialProducto) {
       setLocalProducto({
         name: initialProducto.name || "",
         price: initialProducto.price || "",
         image: initialProducto.image || "",
         description: initialProducto.description || "",
+        currency: initialProducto.currency || "UYU",
       });
     }
   }, [initialProducto]);
 
-  // Maneja cambios en los inputs de texto/textarea
+  // Maneja cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLocalProducto((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Maneja el input de tipo "file" para la imagen (abre explorador de archivos)
+  // Maneja el input de tipo "file" (imagen)
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Convertimos el archivo seleccionado a Base64
+    // Convertimos a Base64
     const reader = new FileReader();
     reader.onloadend = () => {
       setLocalProducto((prev) => ({
         ...prev,
-        image: reader.result, // Base64
+        image: reader.result, 
       }));
     };
     reader.readAsDataURL(file);
   };
 
-  // Al guardar => llamamos onSave con los datos locales
+  // Al guardar => llamamos onSave
   const handleSave = () => {
+    console.log("Modal - handleSave => localProducto: ", localProducto);
     onSave(localProducto);
   };
 
@@ -99,7 +103,20 @@ const ModalProductoLocal = ({
             />
           </Form.Group>
 
-          {/* IMAGEN (Seleccionar archivo) */}
+          {/* MONEDA (SELECT) */}
+          <Form.Group className="mb-3">
+            <Form.Label>Moneda</Form.Label>
+            <Form.Select
+              name="currency"
+              value={localProducto.currency}
+              onChange={handleChange}
+            >
+              <option value="UYU">$ Pesos (UYU)</option>
+              <option value="USD">U$ Dólares (USD)</option>
+            </Form.Select>
+          </Form.Group>
+
+          {/* IMAGEN */}
           <Form.Group className="mb-3">
             <Form.Label>Imagen</Form.Label>
             <Form.Control
@@ -107,15 +124,16 @@ const ModalProductoLocal = ({
               accept="image/*"
               onChange={handleFileChange}
             />
-            {/**
-             * Si quieres mostrar una previsualización de la imagen seleccionada:
-             */}
             {localProducto.image && localProducto.image.startsWith("data:image/") && (
               <div style={{ marginTop: "0.5rem" }}>
                 <img
                   src={localProducto.image}
                   alt="Vista previa"
-                  style={{ width: "100%", maxHeight: "200px", objectFit: "cover" }}
+                  style={{
+                    width: "100%",
+                    maxHeight: "200px",
+                    objectFit: "cover",
+                  }}
                 />
               </div>
             )}

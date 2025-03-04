@@ -1,15 +1,13 @@
-// src/Componentes/TablaProductoFactura.js
 import React from "react";
-import { FaTimes, FaDollarSign } from "react-icons/fa";
 import { Button } from "react-bootstrap";
+import { FaTimes } from "react-icons/fa";
 
 const TablaProductoFactura = ({
+  
   productosSeleccionados,
-  productosEnDolares,
-  tasaDolar,
   handleEliminarDeFactura,
-  toggleMoneda,
 }) => {
+  console.log("TablaProductoFactura => productosSeleccionados: ", productosSeleccionados);
   return (
     <table
       className="table table-bordered table-hover table-sm"
@@ -22,50 +20,39 @@ const TablaProductoFactura = ({
           <th>Precio Unitario</th>
           <th>Total</th>
           <th className="col-eliminar">Eliminar</th>
-          <th className="col-convertir">Convertir</th>
         </tr>
       </thead>
       <tbody>
         {productosSeleccionados.map((producto, index) => {
-          const codigo = producto.codigo || "N/A";
           const descripcion = producto.descripcion || "Sin descripción";
-          const precioUYU = producto.precio ? parseFloat(producto.precio) : 0;
+          const precioNum = parseFloat(producto.precio) || 0;
           const cantidad = producto.cantidad || 0;
-          const enDolares = productosEnDolares[codigo];
 
-          // Cálculos de precio unitario y total
-          const precioMostrar = enDolares
-            ? (precioUYU / tasaDolar).toFixed(2)
-            : precioUYU.toFixed(2);
+          // 🔹 Decide el símbolo según currency
+          const simboloMoneda = producto.currency === "USD" ? "U$" : "$";
 
-          const totalProd = enDolares
-            ? ((precioUYU * cantidad) / tasaDolar).toFixed(2)
-            : (precioUYU * cantidad).toFixed(2);
+          // Cálculo del subtotal
+          const subtotal = precioNum * cantidad;
 
           return (
             <tr key={index}>
               <td>{cantidad}</td>
               <td>{descripcion}</td>
               <td>
-                {enDolares ? `U$ ${precioMostrar}` : `$ ${precioMostrar}`}
+                {simboloMoneda}
+                {precioNum.toFixed(2)}
               </td>
               <td>
-                {enDolares ? `U$ ${totalProd}` : `$ ${totalProd}`}
+                {simboloMoneda}
+                {subtotal.toFixed(2)}
               </td>
               <td className="col-eliminar">
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => handleEliminarDeFactura(codigo)}
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleEliminarDeFactura(producto.codigo)}
                 >
                   <FaTimes />
-                </button>
-              </td>
-              <td className="col-convertir">
-                <Button
-                  className="btn btn-info btn-sm"
-                  onClick={() => toggleMoneda(codigo)}
-                >
-                  <FaDollarSign />
                 </Button>
               </td>
             </tr>

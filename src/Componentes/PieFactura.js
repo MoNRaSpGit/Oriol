@@ -8,9 +8,14 @@ const PieFactura = ({
   setFinalEnDolares,
   tasaDolar,
 }) => {
-  // Calcula total final
-  const totalFinalPesos = totalPesos + totalDolares * tasaDolar;
-  const totalFinalDolares = totalDolares + totalPesos / tasaDolar;
+  // Asegurarnos de que sean números
+  const pesosNum = parseFloat(totalPesos) || 0;
+  const dolaresNum = parseFloat(totalDolares) || 0;
+  const tasaNum = parseFloat(tasaDolar) || 1;
+
+  // Calcula total final: todo en pesos o todo en dólares
+  const totalFinalPesos = pesosNum + dolaresNum * tasaNum;
+  const totalFinalDolares = dolaresNum + pesosNum / tasaNum;
 
   return (
     <div className="factura-footer">
@@ -29,16 +34,17 @@ const PieFactura = ({
         <div className="pie-col pie-totales">
           <div className="total-item">
             <span className="total-label">Total $:</span>
-            <span className="total-value">{totalPesos.toFixed(2)}</span>
+            <span className="total-value">{pesosNum.toFixed(2)}</span>
           </div>
           <div className="total-item">
             <span className="total-label">Dólares:</span>
-            <span className="total-value">{totalDolares.toFixed(2)}</span>
+            <span className="total-value">{dolaresNum.toFixed(2)}</span>
           </div>
 
+          {/* Total final con toggle */}
           <div
             className="total-item total-final"
-            style={{ color: "red", cursor: "pointer" }}
+            style={{ color: "darkred", cursor: "pointer" }}
             onClick={() => setFinalEnDolares(!finalEnDolares)}
           >
             <span className="total-label">Total:</span>

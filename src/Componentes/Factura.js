@@ -6,9 +6,9 @@ import { removeProduct } from "../Slice/productsSlice";
 import CabeceraFactura from "./CabeceraFactura";
 import TablaProductoFactura from "./TablaProductoFactura";
 import PieFactura from "./PieFactura";
-import EditarDatosModal from "./EditarDatosModal"; // el modal aparte
+import EditarDatosModal from "./EditarDatosModal"; // Modal aparte
 
-// Estilos
+// Estilos (ajusta según tu proyecto)
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../Css/Factura.css";
 import "../Css/logo.css";
@@ -20,17 +20,20 @@ import "../Css/Pie.css";
 const Factura = () => {
   const dispatch = useDispatch();
 
-  // Tomamos la cotización del dólar (si la tienes en Redux) o un useState local:
-  const tasaDolar = useSelector((state) => state.config.tasaDolar);
+  // 1) Tomamos la cotización del dólar (si la tienes en Redux):
+  const tasaDolar = useSelector((state) => state.config.tasaDolar) || 40;
 
-  // Productos de la factura
+  // 2) Productos de la factura
   const productosSeleccionados = useSelector(
     (state) => state.products.productosSeleccionados
   ) || [];
 
-  // Datos del rectángulo
+  // 3) Controlar toggle para mostrar el total final en dólares o en pesos
+  const [finalEnDolares, setFinalEnDolares] = useState(false);
+
+  // 4) Datos de la cabecera de la factura
   const [datosFactura, setDatosFactura] = useState({
-    rutEmisor: "4587854",
+    rutEmisor: "No corresponde",
     eFacture: "e-Factura",
     serie: "A",
     fecha: "20/02/2025",
@@ -42,29 +45,17 @@ const Factura = () => {
     ubicacionCliente: "TACUAREMBO (TACUAREMBO), URUGUAY",
   });
 
-  // Modal de edición
+  // 5) Modal (para editar datos de cabecera)
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-
-  // Toggle final en rojo
-  const [finalEnDolares, setFinalEnDolares] = useState(false);
 
   // Actualizar datos del modal
   const handleInputChange = (e) => {
     setDatosFactura({ ...datosFactura, [e.target.name]: e.target.value });
   };
 
-  // Control de monedas en la tabla
-  const [productosEnDolares, setProductosEnDolares] = useState({});
-  const toggleMoneda = (codigo) => {
-    setProductosEnDolares((prev) => ({
-      ...prev,
-      [codigo]: !prev[codigo],
-    }));
-  };
-
-  // Mensaje si no hay productos
+  // Si no hay productos, mostramos un mensaje
   if (!productosSeleccionados.length) {
     return (
       <div className="factura-container">
@@ -74,28 +65,27 @@ const Factura = () => {
     );
   }
 
-  // Eliminar producto de la factura
+  // Eliminar producto de la factura (solo de la lista local, no de la BD)
   const handleEliminarDeFactura = (codigo) => {
     dispatch(removeProduct(codigo));
   };
 
-  // Cálculos de totales (pesos / dólares)
-  const { totalPesos, totalDolares } = productosSeleccionados.reduce(
-    (acc, producto) => {
-      const codigo = producto.codigo || "N/A";
-      const precioUYU = producto.precio ? parseFloat(producto.precio) : 0;
-      const cantidad = producto.cantidad || 0;
-      const enDolares = productosEnDolares[codigo];
+  // 6) Calcular totales en pesos y dólares (sin conversión)
+  let totalPesos = 0;
+  let totalDolares = 0;
 
-      if (enDolares) {
-        acc.totalDolares += (precioUYU * cantidad) / tasaDolar;
-      } else {
-        acc.totalPesos += precioUYU * cantidad;
-      }
-      return acc;
-    },
-    { totalPesos: 0, totalDolares: 0 }
-  );
+  productosSeleccionados.forEach((producto) => {
+    const precioNum = parseFloat(producto.precio) || 0;
+    const cantidad = producto.cantidad || 0;
+
+    // Si el producto está en USD, lo sumamos a totalDolares
+    // Si está en UYU (o no existe currency), lo sumamos a totalPesos
+    if (producto.currency === "USD") {
+      totalDolares += precioNum * cantidad;
+    } else {
+      totalPesos += precioNum * cantidad;
+    }
+  });
 
   return (
     <div className="factura-container">
@@ -110,15 +100,12 @@ const Factura = () => {
       {/* Tabla */}
       <TablaProductoFactura
         productosSeleccionados={productosSeleccionados}
-        productosEnDolares={productosEnDolares}
-        tasaDolar={tasaDolar}
         handleEliminarDeFactura={handleEliminarDeFactura}
-        toggleMoneda={toggleMoneda}
       />
 
       <div className="linea-divisoria"></div>
 
-      {/* Pie */}
+      {/* Pie con el toggle para el total final */}
       <PieFactura
         totalPesos={totalPesos}
         totalDolares={totalDolares}
@@ -127,7 +114,7 @@ const Factura = () => {
         tasaDolar={tasaDolar}
       />
 
-      {/* MODAL para editar datos */}
+      {/* Modal para editar datos de la factura */}
       <EditarDatosModal
         show={showModal}
         handleClose={handleCloseModal}
