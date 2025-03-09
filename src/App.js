@@ -6,6 +6,7 @@ import { FaLeaf, FaBox, FaFileInvoice, FaPrint } from "react-icons/fa";
 import Productos from "./Componentes/Productos";
 import Factura from "./Componentes/Factura";
 import Login from "./Componentes/Login";
+
 import { setTasaDolar } from "../src/Slice/configSlice"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

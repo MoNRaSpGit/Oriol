@@ -1,6 +1,7 @@
 // src/Componentes/CabeceraFactura.js
 import React from "react";
 import logoOrio from "../Img/logoOriol2.png";
+import "../Css/Cabezera.css"
 
 const CabeceraFactura = ({ datosFactura, handleShowModal }) => {
   return (
@@ -15,7 +16,7 @@ const CabeceraFactura = ({ datosFactura, handleShowModal }) => {
         </div>
         <div className="dueno">
           <div className="dueno-nombre"></div>
-          <div className="dueno-nombre">WILSON FERREIRA Y OLIMPIA PINTOS</div>
+          <div className="dueno-nombre">WILSON FERREIRA ALDUNATE Y OLIMPIA PINTOS</div>
           <div className="dueno-telefono">46329790 - 098796127</div>
         </div>
       </div>
@@ -51,8 +52,8 @@ const CabeceraFactura = ({ datosFactura, handleShowModal }) => {
           RUT RECEPTOR: {datosFactura.rutReceptor}
         </div>
         <div className="header-row header-cliente">
-          <div>Nombre Cliente: {datosFactura.nombreCliente}</div>
-          <div>Dirección: {datosFactura.direccionCliente}</div>
+          <div className="nombre-cliente">{datosFactura.nombreCliente}</div>
+          <div>{datosFactura.direccionCliente}</div>
           <div>{datosFactura.ubicacionCliente}</div>
         </div>
       </div>

@@ -21,7 +21,7 @@ const PieFactura = ({
     <div className="factura-footer">
       <div className="pie-rect">
         {/* Columna 1 */}
-        <div className="pie-col">
+        <div className="pie-col2">
           <div>Desarrollado por LogicLab</div>
           <div>Sistema de facturación</div>
           <div>Cel: 092945696</div>

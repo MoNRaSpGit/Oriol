@@ -30,7 +30,20 @@
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 12px;
+     
+  }
+
+  .pie-col2 {
+    margin-top: -20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5) !important; /* Negro con 50% de transparencia */
+     
   }
   
   /* Sección de totales con mayor tamaño */
