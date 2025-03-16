@@ -1,4 +1,3 @@
-// src/Componentes/Factura.jsx
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../Slice/productsSlice";
@@ -20,32 +19,41 @@ import "../Css/Pie.css";
 const Factura = () => {
   const dispatch = useDispatch();
 
-  // 1) Tomamos la cotización del dólar (si la tienes en Redux):
+  // 1) Obtener la fecha actual dinámica (formato DD/MM/YYYY)
+  const obtenerFechaActual = () => {
+    return new Date().toLocaleDateString("es-UY", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
+  // 2) Tomamos la cotización del dólar (si la tienes en Redux):
   const tasaDolar = useSelector((state) => state.config.tasaDolar) || 40;
 
-  // 2) Productos de la factura
+  // 3) Productos de la factura
   const productosSeleccionados = useSelector(
     (state) => state.products.productosSeleccionados
   ) || [];
 
-  // 3) Controlar toggle para mostrar el total final en dólares o en pesos
+  // 4) Controlar toggle para mostrar el total final en dólares o en pesos
   const [finalEnDolares, setFinalEnDolares] = useState(false);
 
-  // 4) Datos de la cabecera de la factura
+  // 5) Datos de la cabecera de la factura
   const [datosFactura, setDatosFactura] = useState({
-    rutEmisor: "No corresponde",
+    rutEmisor: "",
     eFacture: "e-Factura",
     serie: "A",
-    fecha: "20/02/2025",
+    fecha: obtenerFechaActual(), // Fecha dinámica
     pago: "Contado",
     moneda: "UYU",
-    rutReceptor: "No corresponde",
+    rutReceptor: "",
     nombreCliente: "Cliente final",
-    direccionCliente: "No corresponde",
+    direccionCliente: "",
     ubicacionCliente: "TACUAREMBO (TACUAREMBO), URUGUAY",
   });
 
-  // 5) Modal (para editar datos de cabecera)
+  // 6) Modal (para editar datos de cabecera)
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -65,12 +73,12 @@ const Factura = () => {
     );
   }
 
-  // Eliminar producto de la factura (solo de la lista local, no de la BD)
+  // Eliminar producto de la factura
   const handleEliminarDeFactura = (codigo) => {
     dispatch(removeProduct(codigo));
   };
 
-  // 6) Calcular totales en pesos y dólares (sin conversión)
+  // 7) Calcular totales en pesos y dólares (sin conversión)
   let totalPesos = 0;
   let totalDolares = 0;
 
