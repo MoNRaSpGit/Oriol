@@ -1,11 +1,12 @@
 // src/App.js
 import React, { useMemo, useState, useEffect } from "react";
 import { HashRouter as Router, Route, Routes, Link, useLocation, Navigate } from "react-router-dom";
-import { useSelector,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FaLeaf, FaBox, FaFileInvoice, FaPrint } from "react-icons/fa";
 import Productos from "./Componentes/Productos";
 import Factura from "./Componentes/Factura";
 import Login from "./Componentes/Login";
+import CuentaCorriente from "./Componentes/CuentaCorriente";
 
 import { setTasaDolar } from "../src/Slice/configSlice"
 import { ToastContainer } from "react-toastify";
@@ -76,12 +77,20 @@ function Navbar({ mostrarNavbar }) {
 
             {/* 🔹 SOLO se muestra si estamos en /productos */}
             {location.pathname === "/productos" && (
-              <Link className="btn btn-primary me-2" to="/factura">
-                <FaFileInvoice className="me-2" /> Ver Factura
-                <span className="badge bg-light text-dark ms-2">
-                  {memoizedProductosSeleccionados.length}
-                </span>
-              </Link>
+              <>
+                <Link className="btn btn-primary me-2" to="/factura">
+                  <FaFileInvoice className="me-2" /> Ver Factura
+                  <span className="badge bg-light text-dark ms-2">
+                    {memoizedProductosSeleccionados.length}
+                  </span>
+                </Link>
+
+                {/* Botón Cuenta Corriente aquí */}
+                <Link className="btn btn-info" to="/cuenta-corriente">
+                  Cuenta Corriente
+                </Link>
+              </>
+
             )}
           </div>
         </div>
@@ -109,14 +118,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* Mostramos la navbar solo si está autenticado */}
         {isAuthenticated && <Navbar mostrarNavbar={mostrarNavbar} />}
-
         <Routes>
-          {/* Login en la raíz "/" */}
           <Route path="/" element={<Login />} />
-
-          {/* Rutas protegidas */}
           <Route
             path="/productos"
             element={isAuthenticated ? <Productos /> : <Navigate to="/" />}
@@ -126,7 +130,14 @@ function App() {
             element={isAuthenticated ? <Factura /> : <Navigate to="/" />}
           />
 
-          {/* Si acceden a una ruta inexistente, redirigimos a "/". */}
+          {/* NUEVA RUTA */}
+          <Route
+            path="/cuenta-corriente"
+            element={
+              isAuthenticated ? <CuentaCorriente /> : <Navigate to="/" />
+            }
+          />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
 
