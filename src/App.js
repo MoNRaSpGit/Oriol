@@ -86,7 +86,7 @@ function Navbar({ mostrarNavbar }) {
                 </Link>
 
                 {/* Botón Cuenta Corriente aquí */}
-                <Link className="btn btn-info" to="/cuenta-corriente">
+                <Link className="btn btn-secondary" to="/cuenta-corriente">
                   Cuenta Corriente
                 </Link>
               </>
