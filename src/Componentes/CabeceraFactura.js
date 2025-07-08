@@ -1,9 +1,13 @@
 // src/Componentes/CabeceraFactura.js
 import React from "react";
 import logoOrio from "../Img/logoOriol2.png";
-import "../Css/Cabezera.css"
+import "../Css/Cabezera.css";
 
-const CabeceraFactura = ({ datosFactura, handleShowModal }) => {
+const CabeceraFactura = ({ datosFactura, finalEnDolares, handleShowModal }) => {
+  // Elegir símbolo según el flag
+  const monedaAMostrar = finalEnDolares ? "USD" : datosFactura.moneda;
+
+
   return (
     <div className="factura-header">
       <div className="logo-dueno-container">
@@ -44,7 +48,7 @@ const CabeceraFactura = ({ datosFactura, handleShowModal }) => {
             <div className="header-col header-value">{datosFactura.fecha}</div>
             <div className="header-col header-value">{datosFactura.pago}</div>
             <div className="header-col header-value">
-              {datosFactura.moneda}
+              {monedaAMostrar}
             </div>
           </div>
         </div>

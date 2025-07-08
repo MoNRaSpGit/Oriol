@@ -100,6 +100,7 @@ const Factura = () => {
       {/* Cabecera */}
       <CabeceraFactura
         datosFactura={datosFactura}
+        finalEnDolares={finalEnDolares}
         handleShowModal={handleShowModal}
       />
 
